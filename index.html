@@ -87,7 +87,7 @@
       <div class="flex gap-2 mt-6 pt-4 border-t border-white/15 flex-wrap">
         <button id="tabBtnCharts" onclick="switchTab('charts')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-900 shadow-md flex items-center gap-2">
           <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          📊 กราฟการเปรียบเทียบข้อมูล (10 สไลด์สถิติ)
+          📊 กราฟการเปรียบเทียบข้อมูล (11 สไลด์สถิติ)
         </button>
         <button id="tabBtnFamily" onclick="switchTab('family')" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-white/90 hover:bg-white/10 flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -98,7 +98,7 @@
       <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
     </header>
 
-    <!-- TAB 1: ALL 10 COMPARISON CHARTS -->
+    <!-- TAB 1: ALL 11 COMPARISON CHARTS -->
     <div id="tabCharts" class="space-y-6">
 
       <div class="flex items-center gap-2 pt-2">
@@ -404,7 +404,7 @@
               </div>
 
               <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
+                <div class="flex items-center gap-2">
                   <span class="rank-medal medal-3 text-xs w-7 h-7">🥉 3</span>
                   <span class="font-bold text-xs text-orange-950">พนักงานบริษัท</span>
                 </div>
@@ -600,6 +600,101 @@
               <canvas id="bmiChart"></canvas>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- SLIDE: พฤติกรรมการรับประทานอาหาร (N=70 ครัวเรือน) -->
+      <div class="slide-card p-6 border-l-4 border-amber-500 space-y-6">
+        <div class="text-center pb-4 border-b border-slate-100">
+          <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 px-4 py-1 rounded-full text-xs font-bold mb-2">
+            <span>🥗</span> พฤติกรรมการบริโภคอาหาร (Dietary Habits)
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+            ร้อยละของครัวเรือน จำแนกตามพฤติกรรมการรับประทานอาหาร (N=70)
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            การควบคุมการบริโภคโซเดียม น้ำตาล และไขมัน/น้ำมันในระดับครัวเรือน ชุมชนตำบลบางหัก ม.1
+          </p>
+        </div>
+
+        <div class="bg-slate-50/70 p-5 rounded-2xl border border-slate-100">
+          <div class="h-72 w-full">
+            <canvas id="dietChart"></canvas>
+          </div>
+        </div>
+
+        <!-- 3 Cards below the chart matching the slide -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          
+          <!-- SALT Card -->
+          <div class="bg-gradient-to-br from-red-50/70 to-rose-50/70 p-4 rounded-2xl border border-rose-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-200 flex items-center justify-center text-2xl flex-shrink-0">
+                🧂
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคโซเดียม &lt; 1 ช้อนชา</h4>
+                <span class="text-[11px] font-semibold text-rose-700">อาหารรสเค็ม / เครื่องปรุง</span>
+              </div>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
+                <span>ตามเกณฑ์</span>
+                <span class="font-bold">67.14% <span class="text-[10px] font-normal text-slate-600">(47 หลัง)</span></span>
+              </div>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
+                <span>ไม่ตามเกณฑ์</span>
+                <span class="font-bold">32.86% <span class="text-[10px] font-normal text-slate-600">(23 หลัง)</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUGAR Card -->
+          <div class="bg-gradient-to-br from-amber-50/70 to-yellow-50/70 p-4 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-200 flex items-center justify-center text-2xl flex-shrink-0">
+                🌾
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำตาล &lt; 6 ช้อนชา/วัน</h4>
+                <span class="text-[11px] font-semibold text-amber-700">อาหารรสหวาน / ขนม / เครื่องดื่ม</span>
+              </div>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
+                <span>ตามเกณฑ์</span>
+                <span class="font-bold">82.86% <span class="text-[10px] font-normal text-slate-600">(58 หลัง)</span></span>
+              </div>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
+                <span>ไม่ตามเกณฑ์</span>
+                <span class="font-bold">17.14% <span class="text-[10px] font-normal text-slate-600">(12 หลัง)</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- OIL Card -->
+          <div class="bg-gradient-to-br from-emerald-50/70 to-teal-50/70 p-4 rounded-2xl border border-emerald-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-200 flex items-center justify-center text-2xl flex-shrink-0">
+                🛢️
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำมัน &lt; 6 ช้อนชา/วัน</h4>
+                <span class="text-[11px] font-semibold text-emerald-700">อาหารทอด / ไขมันสูง</span>
+              </div>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
+                <span>ตามเกณฑ์</span>
+                <span class="font-bold">82.86% <span class="text-[10px] font-normal text-slate-600">(58 หลัง)</span></span>
+              </div>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
+                <span>ไม่ตามเกณฑ์</span>
+                <span class="font-bold">17.14% <span class="text-[10px] font-normal text-slate-600">(12 หลัง)</span></span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -952,7 +1047,7 @@
         }
       });
 
-      // BMI Bar Chart (อายุ 15 ปีขึ้นไป N=184)
+      // 8. BMI Bar Chart (อายุ 15 ปีขึ้นไป N=184)
       const ctxBmi = document.getElementById('bmiChart').getContext('2d');
       new Chart(ctxBmi, {
         type: 'bar',
@@ -975,6 +1070,62 @@
           scales: {
             y: { beginAtZero: true, max: 45, ticks: { callback: function(v) { return v + '%'; } } },
             x: { ticks: { font: { family: 'Sarabun', size: 10, weight: 'bold' } } }
+          }
+        }
+      });
+
+      // 8.5 NEW DIET CHART (Grouped Bar Chart, N=70 ครัวเรือน)
+      const ctxDiet = document.getElementById('dietChart').getContext('2d');
+      new Chart(ctxDiet, {
+        type: 'bar',
+        data: {
+          labels: ["บริโภคโซเดียม < 1 ช้อนชา", "บริโภคน้ำตาล < 6 ช้อนชา/วัน", "บริโภคน้ำมัน < 6 ช้อนชา/วัน"],
+          datasets: [
+            {
+              label: 'ตามเกณฑ์',
+              data: [67.14, 82.86, 82.86],
+              backgroundColor: '#10b981',
+              borderRadius: 6,
+              barPercentage: 0.7,
+              categoryPercentage: 0.6
+            },
+            {
+              label: 'ไม่ตามเกณฑ์',
+              data: [32.86, 17.14, 17.14],
+              backgroundColor: '#ef4444',
+              borderRadius: 6,
+              barPercentage: 0.7,
+              categoryPercentage: 0.6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { font: { family: 'Sarabun', size: 12, weight: 'bold' } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.dataset.label + ': ' + ctx.raw + '% (' + (ctx.datasetIndex === 0 ? [47, 58, 58][ctx.dataIndex] : [23, 12, 12][ctx.dataIndex]) + ' หลัง)';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { callback: function(v) { return v + '%'; } },
+              grid: { color: '#f1f5f9' }
+            },
+            x: {
+              ticks: { font: { family: 'Sarabun', size: 11, weight: 'bold' } },
+              grid: { display: false }
+            }
           }
         }
       });
