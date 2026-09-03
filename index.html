@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบคัดกรองข้อมูลสุขภาพรายครอบครัว ต.บางหัก ม.1</title>
+  <title>ระบบวิเคราะห์และคัดกรองข้อมูลสุขภาพชุมชน ต.บางหัก ม.1</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -26,164 +27,778 @@
     .badge-purple { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
     .badge-slate { background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
+    .slide-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+    .slide-card:hover {
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.08);
+    }
+
+    .rank-medal {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .medal-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; box-shadow: 0 2px 8px rgba(245,158,11,0.4); }
+    .medal-2 { background: linear-gradient(135deg, #cbd5e1, #94a3b8); color: white; box-shadow: 0 2px 8px rgba(148,163,184,0.4); }
+    .medal-3 { background: linear-gradient(135deg, #d97706, #b45309); color: white; box-shadow: 0 2px 8px rgba(180,83,9,0.4); }
+    .medal-star { background: linear-gradient(135deg, #fcd34d, #fbbf24); color: #78350f; }
+
     /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen p-3 md:p-6 antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 antialiased">
   <div class="max-w-7xl mx-auto space-y-5">
     
     <!-- Top Header Banner -->
-    <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-teal-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+    <header class="bg-gradient-to-r from-blue-800 via-indigo-800 to-teal-800 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="bg-white/20 text-white text-xs px-2.5 py-0.5 rounded-full font-medium backdrop-blur-sm">แฟ้มสุขภาพครอบครัว (Family Folder)</span>
-            <span class="bg-emerald-400/30 text-emerald-100 text-xs px-2.5 py-0.5 rounded-full font-medium">สำรวจครบ 73 ครัวเรือน</span>
+          <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span class="bg-white/20 text-white text-xs px-3 py-0.5 rounded-full font-medium backdrop-blur-sm">แบบประเมินปัญหาสุขภาพชุมชน</span>
+            <span class="bg-emerald-400/30 text-emerald-100 text-xs px-3 py-0.5 rounded-full font-medium">สำรวจครบ 73 ครัวเรือน (N=212)</span>
+            <span class="bg-amber-400/30 text-amber-100 text-xs px-3 py-0.5 rounded-full font-medium">Localhost: 8080</span>
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold tracking-tight">ระบบสืบค้นและกรองข้อมูลสุขภาพรายครอบครัว</h1>
-          <p class="text-blue-100 text-sm mt-1">แบบประเมินปัญหาสุขภาพ ตำบลบางหัก หมู่ 1 กับโรงไฟฟ้าบางปะกง • รวม 212 สมาชิก</p>
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight">ระบบเปรียบเทียบข้อมูลและคัดกรองสุขภาพชุมชน</h1>
+          <p class="text-blue-100 text-sm mt-1">ชุมชนตำบลบางหัก หมู่ที่ 1 อำเภอบางปะกง จังหวัดฉะเชิงเทรา กับโรงไฟฟ้าบางปะกง</p>
         </div>
+        
         <div class="flex items-center gap-3">
-          <a href="สรุปข้อมูลสุขภาพรายครอบครัว_ตำบลบางหัก_ม1.xlsx" download class="inline-flex items-center gap-2 bg-white text-blue-800 hover:bg-blue-50 font-semibold px-4 py-2.5 rounded-xl shadow text-sm transition-all">
+          <a href="สรุปข้อมูลสุขภาพรายครอบครัว_ตำบลบางหัก_ม1.xlsx" download class="inline-flex items-center gap-2 bg-white text-blue-900 hover:bg-blue-50 font-semibold px-4 py-2.5 rounded-xl shadow-md text-sm transition-all">
             <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            ดาวน์โหลด Excel (.xlsx)
+            ดาวน์โหลด Excel
           </a>
         </div>
       </div>
-      <!-- Ambient decorative circles -->
+
+      <!-- Navigation Tabs -->
+      <div class="flex gap-2 mt-6 pt-4 border-t border-white/15 flex-wrap">
+        <button id="tabBtnCharts" onclick="switchTab('charts')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-900 shadow-md flex items-center gap-2">
+          <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          📊 กราฟการเปรียบเทียบข้อมูล (10 สไลด์สถิติ)
+        </button>
+        <button id="tabBtnFamily" onclick="switchTab('family')" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-white/90 hover:bg-white/10 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          📋 แฟ้มข้อมูลสุขภาพรายครอบครัว (Family Folder)
+        </button>
+      </div>
+
       <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
-      <div class="absolute right-40 -top-10 w-32 h-32 bg-teal-300/10 rounded-full blur-xl"></div>
     </header>
 
-    <!-- Key Statistics Dashboard -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-slate-500">ครัวเรือนทั้งหมด</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-slate-900">73</span>
-          <span class="text-xs text-slate-500">หลังคาเรือน</span>
-        </div>
-        <span class="text-[11px] text-blue-600 mt-2 font-medium">รวม 212 สมาชิก</span>
+    <!-- ========================================================================= -->
+    <!-- TAB 1: ALL 10 COMPARISON CHARTS (Organized by Demographic & Health) -->
+    <!-- ========================================================================= -->
+    <div id="tabCharts" class="space-y-6">
+
+      <!-- Subheader Section 1: Demographics -->
+      <div class="flex items-center gap-2 pt-2">
+        <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+        <h2 class="text-xl font-bold text-slate-900">หมวดที่ 1: ข้อมูลทั่วไปและเศรษฐกิจสังคม (Demographics & Socioeconomics)</h2>
       </div>
 
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-rose-600">มีผู้ป่วยโรคเรื้อรัง</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-rose-600">55</span>
-          <span class="text-xs text-slate-500">ครัวเรือน (75.3%)</span>
-        </div>
-        <span class="text-[11px] text-rose-700 mt-2 font-medium">รวม 81 ผู้ป่วย</span>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-amber-600">มีผู้สูงอายุ (60 ปีขึ้นไป)</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-amber-600">61</span>
-          <span class="text-xs text-slate-500">ครัวเรือน (83.5%)</span>
-        </div>
-        <span class="text-[11px] text-amber-700 mt-2 font-medium">รวม 90 ผู้สูงอายุ</span>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-indigo-600">ปัญหาฝุ่น/ควัน/กลิ่น</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-indigo-600">51</span>
-          <span class="text-xs text-slate-500">ครัวเรือน (69.8%)</span>
-        </div>
-        <span class="text-[11px] text-indigo-700 mt-2 font-medium">ฝุ่นละออง/กลิ่นบ่อกุ้ง</span>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-slate-600">พฤติกรรมเสี่ยง</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-slate-800">28</span>
-          <span class="text-xs text-slate-500">ครัวเรือน</span>
-        </div>
-        <span class="text-[11px] text-slate-600 mt-2 font-medium">สูบบุหรี่ 21 / สุรา 17</span>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-        <span class="text-xs font-semibold text-emerald-600">คัดกรองมะเร็งสตรี</span>
-        <div class="flex items-baseline gap-1 mt-1">
-          <span class="text-2xl font-bold text-emerald-600">68%</span>
-          <span class="text-xs text-slate-500">ตรวจสม่ำเสมอ</span>
-        </div>
-        <span class="text-[11px] text-emerald-700 mt-2 font-medium">Pap Smear & เต้านม</span>
-      </div>
-    </div>
-
-    <!-- Search and Filter Bar -->
-    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-3">
-      <div class="flex flex-col md:flex-row items-center gap-3">
-        <!-- Search Input -->
-        <div class="relative w-full md:flex-1">
-          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <!-- SLIDE 1: Population Pyramid -->
+      <div class="slide-card p-6 border-l-4 border-blue-600">
+        <div class="text-center pb-4 border-b border-slate-100">
+          <h2 class="text-2xl md:text-3xl font-extrabold text-blue-900 tracking-tight">
+            จำนวนประชากร (N=212)
+          </h2>
+          <p class="text-slate-600 font-semibold text-base mt-1">
+            ชุมชนหมู่ที่ 1 ตำบลบางหัก อำเภอบางปะกง จังหวัดฉะเชิงเทรา
+          </p>
+          <div class="mt-2 inline-block bg-amber-50 border border-amber-200 text-amber-800 text-sm px-4 py-1 rounded-full font-medium shadow-sm">
+            🎯 มีจำนวนผู้สูงอายุที่มีอายุ 60 ปีขึ้นไป จำนวน <strong class="text-amber-900 font-bold">90 คน</strong> คิดเป็นร้อยละ <strong class="text-amber-900 font-bold">42.45%</strong>
           </div>
-          <input type="text" id="searchInput" placeholder="ค้นหาบ้านเลขที่ หรือ ชื่อ-นามสกุลสมาชิก เช่น 4/2, 12/2, มาลัย, ทองสนธิ..." 
-            class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
         </div>
 
-        <!-- Sort Select -->
-        <div class="flex items-center gap-2 w-full md:w-auto">
-          <label for="sortSelect" class="text-xs font-semibold text-slate-500 whitespace-nowrap">เรียงตาม:</label>
-          <select id="sortSelect" class="text-xs py-2 px-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="row_asc">ลำดับที่บันทึก (1 - 73)</option>
-            <option value="house_asc">บ้านเลขที่</option>
-            <option value="members_desc">จำนวนสมาชิก (มาก -> น้อย)</option>
-            <option value="members_asc">จำนวนสมาชิก (น้อย -> มาก)</option>
-          </select>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mt-6">
+          <div class="lg:col-span-9 bg-slate-50/70 p-4 rounded-xl border border-slate-100">
+            <div class="flex items-center justify-center gap-6 mb-3 text-sm font-semibold">
+              <span class="flex items-center gap-2 text-rose-600">
+                <span class="w-3.5 h-3.5 rounded bg-rose-500 inline-block"></span>
+                เพศหญิง (96 คน)
+              </span>
+              <span class="flex items-center gap-2 text-blue-600">
+                <span class="w-3.5 h-3.5 rounded bg-blue-600 inline-block"></span>
+                เพศชาย (114 คน)
+              </span>
+            </div>
+            <div class="h-80 w-full">
+              <canvas id="pyramidChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-3 space-y-4">
+            <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-2xl border border-rose-200 text-center shadow-sm">
+              <div class="w-16 h-16 mx-auto rounded-full bg-rose-500/10 flex items-center justify-center mb-2">
+                <span class="text-3xl">👩</span>
+              </div>
+              <div class="text-xs font-bold uppercase text-rose-600">เพศหญิง</div>
+              <div class="text-3xl font-black text-rose-700 mt-0.5">96 <span class="text-sm font-medium text-slate-500">คน</span></div>
+              <div class="text-xs text-rose-600/80 mt-1 font-medium">45.28% ของประชากร</div>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-200 text-center shadow-sm">
+              <div class="w-16 h-16 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-2">
+                <span class="text-3xl">👨</span>
+              </div>
+              <div class="text-xs font-bold uppercase text-blue-600">เพศชาย</div>
+              <div class="text-3xl font-black text-blue-700 mt-0.5">114 <span class="text-sm font-medium text-slate-500">คน</span></div>
+              <div class="text-xs text-blue-600/80 mt-1 font-medium">53.77% ของประชากร</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100">
-        <span class="text-xs font-medium text-slate-500 mr-1">กรองด่วน:</span>
-        <button onclick="setFilter('all')" id="btn-all" class="filter-pill badge badge-blue cursor-pointer py-1 px-3 text-xs">ทั้งหมด (73)</button>
-        <button onclick="setFilter('chronic')" id="btn-chronic" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-rose-50 hover:text-rose-700">มีโรคเรื้อรัง (55)</button>
-        <button onclick="setFilter('elderly')" id="btn-elderly" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-amber-50 hover:text-amber-700">มีผู้สูงอายุ 60+ (61)</button>
-        <button onclick="setFilter('risk')" id="btn-risk" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-slate-200">สูบบุหรี่/สุรา (28)</button>
-        <button onclick="setFilter('pollution')" id="btn-pollution" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-indigo-50 hover:text-indigo-700">มีปัญหามลพิษ (51)</button>
-        <button onclick="setFilter('chemical')" id="btn-chemical" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-teal-50 hover:text-teal-700">ใช้สารเคมีเกษตร (5)</button>
-        <button onclick="setFilter('q2')" id="btn-q2" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-purple-50 hover:text-purple-700">เสี่ยงสุขภาพจิต 2Q (6)</button>
+      <!-- SLIDE: การนับถือศาสนา (NEW SLIDE) -->
+      <div class="slide-card overflow-hidden relative border-l-4 border-amber-500">
+        <div class="bg-gradient-to-r from-amber-700 via-orange-800 to-amber-900 p-8 text-white">
+          <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-3">
+              <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-xs font-bold text-amber-100">
+                การนับถือศาสนา
+              </div>
+              <h3 class="text-3xl md:text-4xl font-black tracking-tight text-white">
+                ประชากรในชุมชนนับถือศาสนาพุทธทุกคน
+              </h3>
+              <div class="text-xl md:text-2xl font-extrabold text-amber-300">
+                คิดเป็นร้อยละ 100 (212 คน)
+              </div>
+              <p class="text-amber-100 text-sm max-w-lg">
+                จากการสำรวจประชากรชุมชนตำบลบางหัก หมู่ที่ 1 ทั้งหมด 73 ครัวเรือน 212 สมาชิก ทุกคนนับถือศาสนาพุทธ มีวัฒนธรรมและวิถีชีวิตชุมชนร่วมกัน
+              </p>
+            </div>
+
+            <!-- Pictogram Icons Grid (50 icons representing 100%) -->
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-lg">
+              <div class="text-xs font-bold text-amber-200 mb-3 text-center uppercase tracking-wider">สัดส่วนประชากร 100%</div>
+              <div class="grid grid-cols-10 gap-1.5 text-center text-white text-lg">
+                <span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span><span title="ศาสนาพุทธ">👤</span>
+              </div>
+              <div class="text-center text-xs text-amber-200 mt-3 font-semibold">ศาสนาพุทธ 212 คน (100.00%)</div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- SLIDE 2 & 3: Education & Household Income -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- SLIDE: ระดับการศึกษา -->
+        <div class="slide-card p-6 flex flex-col justify-between">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <span class="text-3xl">📚</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">ระดับการศึกษา</h3>
+              <p class="text-xs text-slate-500 font-medium">ประชากรจำแนกตามระดับการศึกษา (N=211)</p>
+            </div>
+          </div>
+
+          <div class="mt-4 h-64">
+            <canvas id="eduChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-yellow-50 border border-yellow-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-star">⭐ 1</span>
+                <span class="font-bold text-sm text-slate-800">ประถมศึกษา</span>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-sm text-yellow-800">42.65%</span>
+                <span class="text-xs text-slate-500 block">90 คน</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-star">⭐ 2</span>
+                <span class="font-bold text-sm text-slate-800">มัธยมศึกษา</span>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-sm text-slate-800">27.96%</span>
+                <span class="text-xs text-slate-500 block">59 คน</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-star">⭐ 3</span>
+                <span class="font-bold text-sm text-slate-800">ปริญญาตรี</span>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-sm text-slate-800">13.74%</span>
+                <span class="text-xs text-slate-500 block">29 คน</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 text-xs text-slate-600">
+              <span>⭐ 4. ปวช./ปวส.: 22 คน (10.43%)</span>
+              <span>⭐ 5. ไม่ได้ศึกษา/อื่นๆ: 11 คน (5.22%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE: รายได้ต่อครอบครัว -->
+        <div class="slide-card p-6 flex flex-col justify-between">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <span class="text-3xl">💰</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">รายได้ต่อครอบครัว</h3>
+              <p class="text-xs text-slate-500 font-medium">ร้อยละของครัวเรือนจำแนกตามรายได้ต่อเดือน (N=73)</p>
+            </div>
+          </div>
+
+          <div class="mt-4 h-64 flex items-center justify-center">
+            <canvas id="incomeChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-1">🥇 1</span>
+                <div>
+                  <span class="font-bold text-sm text-amber-950">ต่ำกว่า 5,000 บาท/เดือน</span>
+                  <span class="text-xs text-amber-700 block">จำนวน 33 ครัวเรือน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-base text-amber-900">45.21%</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 border border-slate-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-2">🥈 2</span>
+                <div>
+                  <span class="font-bold text-sm text-slate-900">10,001–20,000 บาท/เดือน</span>
+                  <span class="text-xs text-slate-600 block">จำนวน 17 ครัวเรือน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-base text-slate-800">23.29%</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-orange-50 border border-orange-200">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-3">🥉 3</span>
+                <div>
+                  <span class="font-bold text-sm text-orange-950">5,001–10,000 บาท/เดือน</span>
+                  <span class="text-xs text-orange-700 block">จำนวน 13 ครัวเรือน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-base text-orange-900">17.81%</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 text-xs text-slate-600">
+              <span>มากกว่า 20,000 บาท: 5 ครัวเรือน (6.85%)</span>
+              <span>ไม่มีรายได้: 5 ครัวเรือน (6.85%)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SLIDE 4 & 5: Employment & Occupations -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- SLIDE: การมีงานทำของประชากรวัยแรงงาน -->
+        <div class="slide-card p-6 flex flex-col justify-between">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <span class="text-3xl">💼</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">การมีงานทำของประชากรวัยแรงงาน</h3>
+              <p class="text-xs text-slate-500 font-medium">ประชากรกลุ่มอายุ 15–59 ปี (N=102 คน)</p>
+            </div>
+          </div>
+
+          <div class="mt-4 h-64 flex items-center justify-center">
+            <canvas id="empChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2.5">
+            <div class="flex items-center justify-between p-3 rounded-xl bg-blue-50 border border-blue-200">
+              <div class="flex items-center gap-3">
+                <span class="rank-medal medal-1">⭐ 1</span>
+                <div>
+                  <span class="font-bold text-sm text-blue-900">ประกอบอาชีพ (มีงานทำ)</span>
+                  <span class="text-xs text-blue-700 block">จำนวน 81 คน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-lg text-blue-800">79.41%</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 rounded-xl bg-orange-50 border border-orange-200">
+              <div class="flex items-center gap-3">
+                <span class="rank-medal medal-2">⭐ 2</span>
+                <div>
+                  <span class="font-bold text-sm text-orange-900">ว่างงาน / ไม่ได้ประกอบอาชีพ</span>
+                  <span class="text-xs text-orange-700 block">จำนวน 13 คน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-lg text-orange-800">12.75%</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+              <div class="flex items-center gap-3">
+                <span class="rank-medal medal-3">⭐ 3</span>
+                <div>
+                  <span class="font-bold text-xs text-emerald-900">นักเรียน / นักศึกษา</span>
+                  <span class="text-[11px] text-emerald-700 block">จำนวน 8 คน</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-sm text-emerald-800">7.84%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE: อาชีพของประชากรวัยแรงงาน -->
+        <div class="slide-card p-6 flex flex-col justify-between">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <span class="text-3xl">👥</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">อาชีพของประชากรวัยแรงงาน</h3>
+              <p class="text-xs text-slate-500 font-medium">จำแนกตามประเภทอาชีพในกลุ่มวัยแรงงาน (N=89 คน)</p>
+            </div>
+          </div>
+
+          <div class="mt-4 h-64 flex items-center justify-center">
+            <canvas id="occChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="rank-medal medal-1 text-xs w-7 h-7">🥇 1</span>
+                  <span class="font-bold text-xs text-amber-950">ค้าขาย / ธุรกิจ</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-bold text-xs text-amber-900 block">23.53%</span>
+                  <span class="text-[10px] text-slate-500">24 คน</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="rank-medal medal-2 text-xs w-7 h-7">🥈 2</span>
+                  <span class="font-bold text-xs text-slate-900">รับจ้างทั่วไป</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-bold text-xs text-slate-800 block">23.53%</span>
+                  <span class="text-[10px] text-slate-500">24 คน</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="rank-medal medal-3 text-xs w-7 h-7">🥉 3</span>
+                  <span class="font-bold text-xs text-orange-950">พนักงานบริษัท</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-bold text-xs text-orange-900 block">8.82%</span>
+                  <span class="text-[10px] text-slate-500">9 คน</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="rank-medal medal-star text-xs w-7 h-7">⭐ 4</span>
+                  <span class="font-bold text-xs text-blue-950">ข้าราชการ/รัฐวิสาหกิจ</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-bold text-xs text-blue-900 block">8.82%</span>
+                  <span class="text-[10px] text-slate-500">9 คน</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-2 rounded-lg bg-slate-50 text-xs text-slate-600 flex justify-between">
+              <span>นักเรียน/นักศึกษา: 8 คน (7.84%)</span>
+              <span>เกษตรกรรม: 3 คน (2.94%)</span>
+              <span>อื่นๆ: 12 คน (11.76%)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Subheader Section 2: Health Status & Services -->
+      <div class="flex items-center gap-2 pt-6">
+        <span class="w-3 h-3 rounded-full bg-rose-600"></span>
+        <h2 class="text-xl font-bold text-slate-900">หมวดที่ 2: ข้อมูลด้านสุขภาพและบริการสาธารณสุข (Health Status & Healthcare)</h2>
+      </div>
+
+      <!-- SLIDE: สิทธิการรักษา & การตรวจสุขภาพประจำปี (NEW SLIDE 2) -->
+      <div class="slide-card p-6 border-l-4 border-teal-600 space-y-6">
+        <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🏥</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">ข้อมูลด้านสุขภาพ: สิทธิการรักษา & การตรวจสุขภาพประจำปี</h3>
+              <p class="text-xs text-slate-500 font-medium">ภาพรวมความครอบคลุมหลักประกันสุขภาพและการคัดกรองสุขภาพเชิงรุก</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Sub-Card 1: สิทธิการรักษา -->
+          <div class="bg-gradient-to-br from-teal-50/60 to-blue-50/60 p-5 rounded-2xl border border-teal-200/80">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="font-bold text-base text-teal-950 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
+                สิทธิการรักษาพยาบาล (N=212)
+              </h4>
+              <span class="badge badge-green font-bold">ครอบคลุม 93.40%</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+              <div class="bg-white p-4 rounded-xl border border-teal-100 shadow-sm text-center">
+                <div class="text-3xl mb-1">💳</div>
+                <div class="text-xs font-bold text-teal-900">สิทธิประกันสุขภาพถ้วนหน้า / ประกันสังคม</div>
+                <div class="text-2xl font-black text-teal-700 mt-1">198 <span class="text-xs font-normal text-slate-500">คน</span></div>
+                <div class="text-xs text-teal-600 font-bold mt-0.5">คิดเป็นร้อยละ 93.4%</div>
+              </div>
+
+              <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center">
+                <div class="text-3xl mb-1">❓</div>
+                <div class="text-xs font-bold text-slate-700">ไม่ระบุ / ไม่ทราบสิทธิ</div>
+                <div class="text-2xl font-black text-slate-600 mt-1">14 <span class="text-xs font-normal text-slate-500">คน</span></div>
+                <div class="text-xs text-slate-500 font-bold mt-0.5">คิดเป็นร้อยละ 6.60%</div>
+              </div>
+            </div>
+            <p class="text-xs text-teal-800/80 mt-3 font-medium">
+              * ประชากรเกือบทั้งหมดมีสิทธิบัตรทอง (30 บาทรักษาทุกโรค) และใช้บริการ รพ.สต.บางหัก และ รพ.พานทอง เป็นหลัก
+            </p>
+          </div>
+
+          <!-- Sub-Card 2: การตรวจสุขภาพประจำปี อายุ 35 ปีขึ้นไป -->
+          <div class="bg-gradient-to-br from-blue-50/60 to-indigo-50/60 p-5 rounded-2xl border border-blue-200/80">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="font-bold text-base text-blue-950 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                การตรวจสุขภาพประจำปี อายุ > 35 ปี (N=194)
+              </h4>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-4">
+              <!-- Yes -->
+              <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-emerald-100 text-emerald-700 font-black text-xl flex items-center justify-center mb-1">
+                  ✓
+                </div>
+                <div class="text-xs font-bold text-emerald-900">มีการตรวจสุขภาพ</div>
+                <div class="text-2xl font-black text-emerald-600 mt-1">87 <span class="text-xs font-normal text-slate-500">คน</span></div>
+                <div class="text-xs text-emerald-700 font-bold mt-0.5">คิดเป็นร้อยละ 44.85%</div>
+              </div>
+
+              <!-- No -->
+              <div class="bg-white p-4 rounded-xl border border-rose-200 shadow-sm text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-rose-100 text-rose-700 font-black text-xl flex items-center justify-center mb-1">
+                  ✕
+                </div>
+                <div class="text-xs font-bold text-rose-900">ไม่มีการตรวจสุขภาพ</div>
+                <div class="text-2xl font-black text-rose-600 mt-1">102 <span class="text-xs font-normal text-slate-500">คน</span></div>
+                <div class="text-xs text-rose-700 font-bold mt-0.5">คิดเป็นร้อยละ 52.58%</div>
+              </div>
+            </div>
+            <p class="text-xs text-blue-800/80 mt-3 font-medium">
+              * ยังมีประชากรมากกว่าครึ่ง (52.58%) ที่ยังไม่ได้รับการตรวจสุขภาพประจำปี ควรจัดบริการตรวจสุขภาพเชิงรุกในชุมชน
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE: ดัชนีมวลกาย (BMI) (NEW SLIDE 3) -->
+      <div class="slide-card p-6 border-l-4 border-indigo-600">
+        <div class="text-center pb-4 border-b border-slate-100">
+          <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-900 px-4 py-1 rounded-full text-xs font-bold mb-2">
+            <span>⚖️</span> ดัชนีมวลกาย (Body Mass Index)
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+            ดัชนีมวลกาย (BMI) ประชากรชุมชนตำบลบางหัก ม.1 (N=195 คน)
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">ประเมินภาวะโภชนาการและน้ำหนักตัวของประชากรตามเกณฑ์มาตรฐานเอเชีย</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mt-6">
+          <!-- Ranking Column (4 cols) -->
+          <div class="lg:col-span-4 space-y-2">
+            <div class="p-3 rounded-xl bg-yellow-50 border border-yellow-200 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-1">🥇 1</span>
+                <div>
+                  <span class="font-bold text-sm text-yellow-950">น้ำหนักปกติ (สมส่วน)</span>
+                  <span class="text-xs text-yellow-700 block">BMI 18.5–22.9</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-base text-yellow-900">38.46%</span>
+                <span class="text-xs text-slate-500 block">75 คน</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-green-50 border border-green-200 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-2">🥈 2</span>
+                <div>
+                  <span class="font-bold text-sm text-green-950">อ้วนระดับ 1</span>
+                  <span class="text-xs text-green-700 block">BMI 25.0–29.9</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-base text-green-900">18.97%</span>
+                <span class="text-xs text-slate-500 block">37 คน</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-3">🥉 3</span>
+                <div>
+                  <span class="font-bold text-xs text-orange-950">น้ำหนักน้อย (ผอม)</span>
+                  <span class="text-[10px] text-orange-700 block">BMI &lt; 18.5</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-bold text-sm text-orange-900">18.46%</span>
+                <span class="text-xs text-slate-500 block">36 คน</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-lime-50 border border-lime-200 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="rank-medal medal-star text-xs w-7 h-7">⭐ 4</span>
+                <div>
+                  <span class="font-bold text-xs text-lime-950">ท้วม (น้ำหนักเกิน)</span>
+                  <span class="text-[10px] text-lime-700 block">BMI 23.0–24.9</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-bold text-sm text-lime-900">15.38%</span>
+                <span class="text-xs text-slate-500 block">30 คน</span>
+              </div>
+            </div>
+
+            <div class="p-2 rounded-xl bg-cyan-50 border border-cyan-200 flex items-center justify-between text-xs">
+              <span class="font-bold text-cyan-900">⭐ 5. อ้วนระดับ 2 (BMI ≥ 30)</span>
+              <span class="font-bold text-cyan-800">8.72% (17 คน)</span>
+            </div>
+          </div>
+
+          <!-- Bar Chart Column (8 cols) -->
+          <div class="lg:col-span-8 bg-slate-50/70 p-4 rounded-xl border border-slate-100">
+            <div class="h-72 w-full">
+              <canvas id="bmiChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE: มีโรคประจำตัว vs ไม่มีโรคประจำตัว & สถานพยาบาลที่ใช้ (NEW SLIDES 4 & 5) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- SLIDE: มีโรคประจำตัว vs ไม่มีโรคประจำตัว (NEW SLIDE 4) -->
+        <div class="slide-card p-6 flex flex-col justify-between border-l-4 border-rose-500">
+          <div class="pb-3 border-b border-slate-100">
+            <h3 class="text-xl font-bold text-slate-900">ประชากรที่มีและไม่มีโรคประจำตัว (N=212)</h3>
+            <p class="text-xs text-slate-500 font-medium">สัดส่วนผู้มีโรคเรื้อรัง (NCDs) ในชุมชนตำบลบางหัก ม.1</p>
+          </div>
+
+          <div class="mt-4 h-60 flex items-center justify-center">
+            <canvas id="diseasePieChart"></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100">
+            <!-- No Chronic -->
+            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-2xl border border-emerald-200 text-center shadow-sm">
+              <div class="w-9 h-9 mx-auto rounded-full bg-emerald-500 text-white font-black text-lg flex items-center justify-center mb-1">
+                ✓
+              </div>
+              <div class="text-xs font-bold text-emerald-950">ไม่มีโรคประจำตัว</div>
+              <div class="text-2xl font-black text-emerald-700 mt-1">131 <span class="text-xs font-normal text-slate-500">คน</span></div>
+              <div class="text-xs text-emerald-700 font-bold mt-0.5">คิดเป็นร้อยละ 61.79%</div>
+            </div>
+
+            <!-- Has Chronic -->
+            <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-2xl border border-rose-200 text-center shadow-sm">
+              <div class="w-9 h-9 mx-auto rounded-full bg-rose-500 text-white font-black text-lg flex items-center justify-center mb-1">
+                ✕
+              </div>
+              <div class="text-xs font-bold text-rose-950">มีโรคประจำตัว</div>
+              <div class="text-2xl font-black text-rose-700 mt-1">81 <span class="text-xs font-normal text-slate-500">คน</span></div>
+              <div class="text-xs text-rose-700 font-bold mt-0.5">คิดเป็นร้อยละ 38.21%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE: สถานที่ให้บริการเมื่อเจ็บป่วย (NEW SLIDE 5) -->
+        <div class="slide-card p-6 flex flex-col justify-between border-l-4 border-emerald-600">
+          <div class="pb-3 border-b border-slate-100">
+            <h3 class="text-xl font-bold text-slate-900">สถานที่ให้บริการเมื่อเจ็บป่วย</h3>
+            <p class="text-xs text-slate-500 font-medium">สถานพยาบาลที่ประชาชนเลือกใช้บริการ (ตอบได้มากกว่า 1 แห่ง, N=320 ครั้ง)</p>
+          </div>
+
+          <div class="mt-4 h-60">
+            <canvas id="hospChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2 bg-blue-50/50 p-3.5 rounded-xl border border-blue-100">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">1. โรงพยาบาลของรัฐ (รพ.พานทอง / รพ.บางปะกง)</span>
+              <span class="font-bold text-emerald-700">168 ครั้ง (52.50%)</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">2. รพ.สต.บางหัก (สถานีอนามัยใกล้บ้าน)</span>
+              <span class="font-bold text-emerald-700">100 ครั้ง (31.25%)</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">3. คลินิกเอกชน</span>
+              <span class="font-bold text-slate-600">28 ครั้ง (8.75%)</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">4. ซื้อยากินเอง / ร้านขายยา</span>
+              <span class="font-bold text-slate-600">21 ครั้ง (6.56%)</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">5. โรงพยาบาลอื่นๆ (รพ.ตำรวจ / จุฬารัตน์)</span>
+              <span class="font-bold text-slate-600">3 ครั้ง (0.94%)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SLIDE: Top Chronic Diseases Breakdown -->
+      <div class="slide-card p-6 border-l-4 border-rose-500">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🩺</span>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">อันดับโรคเรื้อรังที่พบมากที่สุด (Top Chronic Diseases)</h3>
+              <p class="text-xs text-slate-500 font-medium">เปรียบเทียบจำนวนผู้ป่วยโรคประจำตัวในชุมชนตำบลบางหัก ม.1</p>
+            </div>
+          </div>
+          <span class="badge badge-rose text-xs px-3 py-1 font-bold">รวม 81 ผู้ป่วย</span>
+        </div>
+
+        <div class="mt-4 h-64">
+          <canvas id="chronicChart"></canvas>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Main Content: Left List + Right Detail -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+    <!-- ========================================================================= -->
+    <!-- TAB 2: FAMILY FOLDER (Interactive Household Viewer) -->
+    <!-- ========================================================================= -->
+    <div id="tabFamily" class="hidden space-y-5">
       
-      <!-- Household List Column (5 cols) -->
-      <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col max-h-[750px] overflow-hidden">
-        <div class="p-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="font-bold text-sm text-slate-800">รายการครอบครัว</span>
-            <span id="resultCount" class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-bold">73</span>
-          </div>
-          <span class="text-xs text-slate-500">คลิกเพื่อดูแฟ้มข้อมูล</span>
+      <!-- Key Statistics Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-slate-500">ครัวเรือนทั้งหมด</span>
+          <div class="text-2xl font-bold text-slate-900 mt-1">73 <span class="text-xs font-normal text-slate-500">หลัง</span></div>
+          <span class="text-[11px] text-blue-600 font-medium">รวม 212 สมาชิก</span>
         </div>
-
-        <div id="householdList" class="divide-y divide-slate-100 overflow-y-auto p-1 space-y-1">
-          <!-- Dynamically populated via JS -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-rose-600">มีโรคเรื้อรัง</span>
+          <div class="text-2xl font-bold text-rose-600 mt-1">55 <span class="text-xs font-normal text-slate-500">ครัวเรือน</span></div>
+          <span class="text-[11px] text-rose-700 font-medium">รวม 81 ผู้ป่วย</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-amber-600">มีผู้สูงอายุ 60+</span>
+          <div class="text-2xl font-bold text-amber-600 mt-1">61 <span class="text-xs font-normal text-slate-500">ครัวเรือน</span></div>
+          <span class="text-[11px] text-amber-700 font-medium">รวม 90 ผู้สูงอายุ</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-indigo-600">มีปัญหามลพิษ</span>
+          <div class="text-2xl font-bold text-indigo-600 mt-1">51 <span class="text-xs font-normal text-slate-500">ครัวเรือน</span></div>
+          <span class="text-[11px] text-indigo-700 font-medium">ฝุ่นละออง/กลิ่น</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-purple-600">พฤติกรรมเสี่ยง</span>
+          <div class="text-2xl font-bold text-purple-600 mt-1">28 <span class="text-xs font-normal text-slate-500">ครัวเรือน</span></div>
+          <span class="text-[11px] text-purple-700 font-medium">สูบ 21 / ดื่ม 17</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs font-semibold text-emerald-600">ตรวจคัดกรองมะเร็ง</span>
+          <div class="text-2xl font-bold text-emerald-600 mt-1">68%</div>
+          <span class="text-[11px] text-emerald-700 font-medium">Pap Smear / เต้านม</span>
         </div>
       </div>
 
-      <!-- Household Detail Column (7 cols) -->
-      <div id="detailPanel" class="lg:col-span-7 space-y-4">
-        <!-- Dynamically rendered detailed family profile -->
+      <!-- Search & Filter Bar -->
+      <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-col md:flex-row items-center gap-3">
+          <div class="relative w-full md:flex-1">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <input type="text" id="searchInput" placeholder="ค้นหาบ้านเลขที่ หรือ ชื่อ-นามสกุลสมาชิก เช่น 4/2, 12/2, มาลัย, ทองสนธิ..." 
+              class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+
+          <div class="flex items-center gap-2 w-full md:w-auto">
+            <label for="sortSelect" class="text-xs font-semibold text-slate-500 whitespace-nowrap">เรียงตาม:</label>
+            <select id="sortSelect" class="text-xs py-2 px-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="row_asc">ลำดับที่บันทึก (1 - 73)</option>
+              <option value="house_asc">บ้านเลขที่</option>
+              <option value="members_desc">จำนวนสมาชิก (มาก -> น้อย)</option>
+              <option value="members_asc">จำนวนสมาชิก (น้อย -> มาก)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100">
+          <span class="text-xs font-medium text-slate-500 mr-1">กรองด่วน:</span>
+          <button onclick="setFilter('all')" id="btn-all" class="filter-pill badge badge-blue cursor-pointer py-1 px-3 text-xs">ทั้งหมด (73)</button>
+          <button onclick="setFilter('chronic')" id="btn-chronic" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-rose-50 hover:text-rose-700">มีโรคเรื้อรัง (55)</button>
+          <button onclick="setFilter('elderly')" id="btn-elderly" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-amber-50 hover:text-amber-700">มีผู้สูงอายุ 60+ (61)</button>
+          <button onclick="setFilter('risk')" id="btn-risk" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-slate-200">สูบบุหรี่/สุรา (28)</button>
+          <button onclick="setFilter('pollution')" id="btn-pollution" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-indigo-50 hover:text-indigo-700">มีปัญหามลพิษ (51)</button>
+          <button onclick="setFilter('chemical')" id="btn-chemical" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-teal-50 hover:text-teal-700">ใช้สารเคมีเกษตร (5)</button>
+          <button onclick="setFilter('q2')" id="btn-q2" class="filter-pill badge badge-slate cursor-pointer py-1 px-3 text-xs hover:bg-purple-50 hover:text-purple-700">เสี่ยงสุขภาพจิต 2Q (6)</button>
+        </div>
+      </div>
+
+      <!-- Household List + Detail Panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col max-h-[750px] overflow-hidden">
+          <div class="p-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm text-slate-800">รายการครัวเรือน</span>
+              <span id="resultCount" class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-bold">73</span>
+            </div>
+            <span class="text-xs text-slate-500">คลิกเพื่อดูรายละเอียด</span>
+          </div>
+
+          <div id="householdList" class="divide-y divide-slate-100 overflow-y-auto p-1 space-y-1"></div>
+        </div>
+
+        <div id="detailPanel" class="lg:col-span-7 space-y-4"></div>
       </div>
 
     </div>
@@ -197,19 +812,284 @@
     let currentSearch = '';
     let currentSort = 'row_asc';
     let selectedRowId = DATA[0].row_id;
+    let chartsInitialized = false;
 
-    function init() {
+    function switchTab(tabName) {
+      const tabCharts = document.getElementById('tabCharts');
+      const tabFamily = document.getElementById('tabFamily');
+      const btnCharts = document.getElementById('tabBtnCharts');
+      const btnFamily = document.getElementById('tabBtnFamily');
+
+      if (tabName === 'charts') {
+        tabCharts.classList.remove('hidden');
+        tabFamily.classList.add('hidden');
+        btnCharts.className = 'px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-900 shadow-md flex items-center gap-2';
+        btnFamily.className = 'px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-white/90 hover:bg-white/10 flex items-center gap-2';
+      } else {
+        tabCharts.classList.add('hidden');
+        tabFamily.classList.remove('hidden');
+        btnFamily.className = 'px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-900 shadow-md flex items-center gap-2';
+        btnCharts.className = 'px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-white/90 hover:bg-white/10 flex items-center gap-2';
+      }
+    }
+
+    function initCharts() {
+      if (chartsInitialized) return;
+      chartsInitialized = true;
+
+      // 1. Pyramid Chart
+      const ctxPyramid = document.getElementById('pyramidChart').getContext('2d');
+      new Chart(ctxPyramid, {
+        type: 'bar',
+        data: {
+          labels: ["ต่ำกว่า 15 ปี", "15–24 ปี", "25–44 ปี", "45–59 ปี", "60 ปีขึ้นไป"],
+          datasets: [
+            {
+              label: 'เพศหญิง',
+              data: [-6, -7, -14, -20, -49],
+              backgroundColor: '#f43f5e',
+              borderRadius: 4,
+              borderSkipped: false
+            },
+            {
+              label: 'เพศชาย',
+              data: [13, 13, 22, 25, 41],
+              backgroundColor: '#2563eb',
+              borderRadius: 4,
+              borderSkipped: false
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.dataset.label + ': ' + Math.abs(ctx.raw) + ' คน';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              stacked: false,
+              ticks: { callback: function(v) { return Math.abs(v); } },
+              grid: { color: '#e2e8f0' }
+            },
+            y: {
+              stacked: true,
+              grid: { display: false },
+              ticks: { font: { family: 'Sarabun', size: 12, weight: 'bold' } }
+            }
+          }
+        }
+      });
+
+      // 2. Education Bar Chart
+      const ctxEdu = document.getElementById('eduChart').getContext('2d');
+      new Chart(ctxEdu, {
+        type: 'bar',
+        data: {
+          labels: ["ประถมศึกษา", "มัธยมศึกษา", "ปริญญาตรี", "ปวช./ปวส.", "ไม่ได้เรียน", "กำลังศึกษา/เด็ก", "อนุปริญญา/อื่นๆ"],
+          datasets: [{
+            label: 'ร้อยละ (%)',
+            data: [42.65, 27.96, 13.74, 10.43, 2.37, 1.42, 1.42],
+            backgroundColor: ['#ef4444', '#06b6d4', '#ec4899', '#84cc16', '#eab308', '#10b981', '#6366f1'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.raw + '%'; } } }
+          },
+          scales: {
+            y: { beginAtZero: true, max: 50, ticks: { callback: function(v) { return v + '%'; } } },
+            x: { ticks: { font: { family: 'Sarabun', size: 10 } } }
+          }
+        }
+      });
+
+      // 3. Household Income Donut Chart
+      const ctxIncome = document.getElementById('incomeChart').getContext('2d');
+      new Chart(ctxIncome, {
+        type: 'doughnut',
+        data: {
+          labels: ["ต่ำกว่า 5,000 บาท", "10,001–20,000 บาท", "5,001–10,000 บาท", "ไม่มีรายได้", "มากกว่า 20,000 บาท"],
+          datasets: [{
+            data: [45.21, 23.29, 17.81, 6.85, 6.85],
+            backgroundColor: ['#2563eb', '#f97316', '#64748b', '#eab308', '#06b6d4']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 10 } } },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
+          }
+        }
+      });
+
+      // 4. Employment Donut Chart
+      const ctxEmp = document.getElementById('empChart').getContext('2d');
+      new Chart(ctxEmp, {
+        type: 'pie',
+        data: {
+          labels: ["ประกอบอาชีพ", "ว่างงาน/ไม่ได้ประกอบอาชีพ", "นักเรียน/นักศึกษา"],
+          datasets: [{
+            data: [79.41, 12.75, 7.84],
+            backgroundColor: ['#2563eb', '#f97316', '#10b981']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11 } } },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
+          }
+        }
+      });
+
+      // 5. Occupations Pie Chart
+      const ctxOcc = document.getElementById('occChart').getContext('2d');
+      new Chart(ctxOcc, {
+        type: 'pie',
+        data: {
+          labels: ["ค้าขาย/ธุรกิจส่วนตัว", "รับจ้างทั่วไป", "พนักงานบริษัท", "รับราชการ/รัฐวิสาหกิจ", "นักเรียน/นักศึกษา", "เกษตรกรรม", "อื่นๆ"],
+          datasets: [{
+            data: [26.97, 26.97, 10.11, 10.11, 8.99, 3.37, 13.48],
+            backgroundColor: ['#9a3412', '#1e3a8a', '#65a30d', '#0284c7', '#eab308', '#a855f7', '#64748b']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 10 } } },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
+          }
+        }
+      });
+
+      // NEW 8. BMI Bar Chart
+      const ctxBmi = document.getElementById('bmiChart').getContext('2d');
+      new Chart(ctxBmi, {
+        type: 'bar',
+        data: {
+          labels: ["ผอม (< 18.5)", "ปกติ (18.5–22.9)", "ท้วม (23.0–24.9)", "อ้วนระดับ 1 (25.0–29.9)", "อ้วนระดับ 2 (≥ 30.0)"],
+          datasets: [{
+            label: 'ร้อยละ (%)',
+            data: [18.46, 38.46, 15.38, 18.97, 8.72],
+            backgroundColor: ['#f97316', '#eab308', '#84cc16', '#16a34a', '#06b6d4'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.raw + '%'; } } }
+          },
+          scales: {
+            y: { beginAtZero: true, max: 45, ticks: { callback: function(v) { return v + '%'; } } },
+            x: { ticks: { font: { family: 'Sarabun', size: 10, weight: 'bold' } } }
+          }
+        }
+      });
+
+      // NEW 9. Disease Pie Chart
+      const ctxDisease = document.getElementById('diseasePieChart').getContext('2d');
+      new Chart(ctxDisease, {
+        type: 'pie',
+        data: {
+          labels: ['ไม่มีโรคประจำตัว', 'มีโรคประจำตัว'],
+          datasets: [{
+            data: [61.79, 38.21],
+            backgroundColor: ['#10b981', '#2563eb']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11 } } },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
+          }
+        }
+      });
+
+      // NEW 10. Healthcare Facilities Bar Chart
+      const ctxHosp = document.getElementById('hospChart').getContext('2d');
+      new Chart(ctxHosp, {
+        type: 'bar',
+        data: {
+          labels: ["โรงพยาบาลของรัฐ (รพ.พานทอง/รพ.บางปะกง)", "รพ.สต.บางหัก (สถานีอนามัย)", "คลินิกเอกชน", "ร้านขายยา (ซื้อยาเอง)", "โรงพยาบาลอื่นๆ (รพ.ตำรวจ/จุฬารัตน์)"],
+          datasets: [{
+            label: 'จำนวนครั้งที่ระบุ (ครั้ง)',
+            data: [168, 100, 28, 21, 3],
+            backgroundColor: '#16a34a',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, ticks: { stepSize: 40 } },
+            y: { ticks: { font: { family: 'Sarabun', size: 10 } } }
+          }
+        }
+      });
+
+      // Chronic Diseases Horizontal Bar
+      const ctxChronic = document.getElementById('chronicChart').getContext('2d');
+      new Chart(ctxChronic, {
+        type: 'bar',
+        data: {
+          labels: ["ความดันโลหิตสูง", "เบาหวาน", "ไขมันในเลือดสูง", "เกาต์", "ต่อมลูกหมากโต", "โรคหลอดเลือดสมอง"],
+          datasets: [{
+            label: 'จำนวนผู้ป่วย (คน)',
+            data: [54, 38, 32, 4, 4, 3],
+            backgroundColor: '#e11d48',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, ticks: { stepSize: 10 } },
+            y: { ticks: { font: { family: 'Sarabun', size: 11, weight: 'bold' } } }
+          }
+        }
+      });
+    }
+
+    function initFamilyTab() {
       document.getElementById('searchInput').addEventListener('input', (e) => {
         currentSearch = e.target.value.toLowerCase().trim();
-        render();
+        renderFamilyList();
       });
 
       document.getElementById('sortSelect').addEventListener('change', (e) => {
         currentSort = e.target.value;
-        render();
+        renderFamilyList();
       });
 
-      render();
+      renderFamilyList();
     }
 
     function setFilter(filterType) {
@@ -221,12 +1101,11 @@
       if (activeBtn) {
         activeBtn.className = 'filter-pill badge badge-blue cursor-pointer py-1 px-3 text-xs shadow-sm';
       }
-      render();
+      renderFamilyList();
     }
 
     function getFilteredData() {
       return DATA.filter(item => {
-        // Search query
         if (currentSearch) {
           const matchHouse = (item.house_no || '').toLowerCase().includes(currentSearch);
           const matchMember = item.members.some(m => (m.name || '').toLowerCase().includes(currentSearch));
@@ -234,7 +1113,6 @@
           if (!matchHouse && !matchMember && !matchDisease) return false;
         }
 
-        // Category Filter
         if (currentFilter === 'chronic') {
           return item.members.some(m => m.chronic_disease && !['ไม่มี', '-', 'ไม่เป็น', ''].includes(m.chronic_disease));
         }
@@ -275,28 +1153,17 @@
       });
     }
 
-    function render() {
+    function renderFamilyList() {
       const filtered = getFilteredData();
       document.getElementById('resultCount').innerText = filtered.length;
 
-      // Render Left List
       const listContainer = document.getElementById('householdList');
       if (filtered.length === 0) {
-        listContainer.innerHTML = `
-          <div class="p-8 text-center text-slate-400">
-            <svg class="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <p class="text-sm font-medium">ไม่พบข้อมูลตามเงื่อนไขที่ค้นหา</p>
-          </div>
-        `;
-        document.getElementById('detailPanel').innerHTML = `
-          <div class="bg-white rounded-xl p-12 text-center text-slate-400 border border-slate-200">
-            <p>กรุณาเลือกเงื่อนไขใหม่ หรือรีเซ็ตการค้นหา</p>
-          </div>
-        `;
+        listContainer.innerHTML = '<div class="p-8 text-center text-slate-400">ไม่พบข้อมูลตามเงื่อนไขที่ค้นหา</div>';
+        document.getElementById('detailPanel').innerHTML = '';
         return;
       }
 
-      // Check if selected still in filtered
       if (!filtered.some(i => i.row_id === selectedRowId)) {
         selectedRowId = filtered[0].row_id;
       }
@@ -304,8 +1171,6 @@
       listContainer.innerHTML = filtered.map(item => {
         const isSelected = item.row_id === selectedRowId;
         const head = item.members[0] ? item.members[0].name : '-';
-        
-        // Badges
         const hasChronic = item.members.some(m => m.chronic_disease && !['ไม่มี', '-', 'ไม่เป็น', ''].includes(m.chronic_disease));
         const hasElderly = item.members.some(m => (m.age || '').includes('60'));
         const hasRisk = item.members.some(m => (m.smoking && !m.smoking.includes('ไม่สูบ') && m.smoking !== '-') || (m.alcohol && !m.alcohol.includes('ไม่ดื่ม') && m.alcohol !== '-'));
@@ -337,14 +1202,13 @@
         `;
       }).join('');
 
-      // Render Right Detail
       const selectedItem = DATA.find(i => i.row_id === selectedRowId);
       renderDetail(selectedItem);
     }
 
     function selectHousehold(rowId) {
       selectedRowId = rowId;
-      render();
+      renderFamilyList();
     }
 
     function getBmiBadge(bmi) {
@@ -358,12 +1222,10 @@
 
     function renderDetail(item) {
       if (!item) return;
-
       const env = item.environment;
       const mch = item.mch;
 
       document.getElementById('detailPanel').innerHTML = `
-        <!-- Main Household Header Card -->
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
             <div>
@@ -376,22 +1238,18 @@
             <div class="flex items-center gap-2">
               <span class="badge badge-blue text-xs px-3 py-1">รวม ${item.members_count} คน</span>
               <button onclick="window.print()" class="text-xs border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-1 rounded-lg flex items-center gap-1">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                พิมพ์
+                🖨️ พิมพ์
               </button>
             </div>
           </div>
 
-          <!-- Members Grid -->
           <div>
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
               ข้อมูลสมาชิกในครอบครัว (${item.members_count} คน)
             </h3>
-
             <div class="space-y-3">
               ${item.members.map(m => `
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-all">
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
                     <div class="flex items-center gap-2">
                       <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">${m.num}</span>
@@ -402,25 +1260,12 @@
                   </div>
 
                   <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-slate-600 pt-2 border-t border-slate-200/60">
-                    <div>
-                      <span class="text-slate-400 block text-[10px]">การศึกษา</span>
-                      <span class="font-medium">${m.education || '-'}</span>
-                    </div>
-                    <div>
-                      <span class="text-slate-400 block text-[10px]">อาชีพ</span>
-                      <span class="font-medium">${m.occupation || '-'}</span>
-                    </div>
-                    <div>
-                      <span class="text-slate-400 block text-[10px]">รายได้</span>
-                      <span class="font-medium">${m.income || '-'}</span>
-                    </div>
-                    <div>
-                      <span class="text-slate-400 block text-[10px]">สิทธิการรักษา</span>
-                      <span class="font-medium">${m.health_rights || '-'}</span>
-                    </div>
+                    <div><span class="text-slate-400 block text-[10px]">การศึกษา</span><span class="font-medium">${m.education || '-'}</span></div>
+                    <div><span class="text-slate-400 block text-[10px]">อาชีพ</span><span class="font-medium">${m.occupation || '-'}</span></div>
+                    <div><span class="text-slate-400 block text-[10px]">รายได้</span><span class="font-medium">${m.income || '-'}</span></div>
+                    <div><span class="text-slate-400 block text-[10px]">สิทธิรักษา</span><span class="font-medium">${m.health_rights || '-'}</span></div>
                   </div>
 
-                  <!-- Health Details -->
                   <div class="mt-3 pt-2 border-t border-slate-200/60 flex flex-wrap gap-2 items-center text-xs">
                     ${m.chronic_disease && !['ไม่มี', '-', 'ไม่เป็น', ''].includes(m.chronic_disease)
                       ? `<div class="w-full bg-rose-50 border border-rose-200 rounded-lg p-2 text-rose-800">
@@ -429,96 +1274,45 @@
                         </div>`
                       : `<span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[11px]">ไม่มีโรคเรื้อรัง</span>`
                     }
-
-                    ${m.smoking && !m.smoking.includes('ไม่สูบ') && m.smoking !== '-'
-                      ? `<span class="badge badge-rose text-[11px]">สูบบุหรี่: ${m.smoking}</span>` : ''}
-                    
-                    ${m.alcohol && !m.alcohol.includes('ไม่ดื่ม') && m.alcohol !== '-'
-                      ? `<span class="badge badge-amber text-[11px]">ดื่มสุรา: ${m.alcohol}</span>` : ''}
-
-                    ${m.pesticide && !m.pesticide.includes('ไม่ใช้') && m.pesticide !== '-'
-                      ? `<span class="badge badge-purple text-[11px]">ใช้สารเคมีเกษตร</span>` : ''}
-
-                    ${(m.q2_1 && m.q2_1.includes('มี') && !m.q2_1.includes('ไม่มี')) || (m.q2_2 && m.q2_2.includes('มี') && !m.q2_2.includes('ไม่มี'))
-                      ? `<span class="badge badge-rose text-[11px]">เสี่ยง 2Q ซึมเศร้า</span>` : ''}
-
-                    ${m.cervical_screen && !m.cervical_screen.includes('ไม่เคย') && m.cervical_screen !== '-'
-                      ? `<span class="badge badge-blue text-[11px]">มะเร็งปากมดลูก: ${m.cervical_result || m.cervical_screen}</span>` : ''}
-
-                    ${m.breast_screen && !m.breast_screen.includes('ไม่เคย') && m.breast_screen !== '-'
-                      ? `<span class="badge badge-blue text-[11px]">ตรวจเต้านม: ${m.breast_result || m.breast_screen}</span>` : ''}
+                    ${m.smoking && !m.smoking.includes('ไม่สูบ') && m.smoking !== '-' ? `<span class="badge badge-rose text-[11px]">สูบบุหรี่: ${m.smoking}</span>` : ''}
+                    ${m.alcohol && !m.alcohol.includes('ไม่ดื่ม') && m.alcohol !== '-' ? `<span class="badge badge-amber text-[11px]">ดื่มสุรา: ${m.alcohol}</span>` : ''}
+                    ${m.pesticide && !m.pesticide.includes('ไม่ใช้') && m.pesticide !== '-' ? `<span class="badge badge-purple text-[11px]">ใช้สารเคมีเกษตร</span>` : ''}
+                    ${(m.q2_1 && m.q2_1.includes('มี') && !m.q2_1.includes('ไม่มี')) || (m.q2_2 && m.q2_2.includes('มี') && !m.q2_2.includes('ไม่มี')) ? `<span class="badge badge-rose text-[11px]">เสี่ยง 2Q ซึมเศร้า</span>` : ''}
+                    ${m.cervical_screen && !m.cervical_screen.includes('ไม่เคย') && m.cervical_screen !== '-' ? `<span class="badge badge-blue text-[11px]">มะเร็งปากมดลูก: ${m.cervical_result || m.cervical_screen}</span>` : ''}
+                    ${m.breast_screen && !m.breast_screen.includes('ไม่เคย') && m.breast_screen !== '-' ? `<span class="badge badge-blue text-[11px]">ตรวจเต้านม: ${m.breast_result || m.breast_screen}</span>` : ''}
                   </div>
-
                 </div>
               `).join('')}
             </div>
           </div>
 
-          <!-- Environment & Sanitation Section -->
           <div class="pt-3 border-t border-slate-100">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              สุขาภิบาลสิ่งแวดล้อมรอบบ้าน
-            </h3>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">สภาพในบ้าน / รอบบ้าน</span>
-                <span class="font-medium text-slate-800">${env.inside_clean || '-'} / ${env.outside_clean || '-'}</span>
-              </div>
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">การระบายอากาศ / แสงสว่าง</span>
-                <span class="font-medium text-slate-800">${env.ventilation || '-'} / ${env.lighting || '-'}</span>
-              </div>
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">ลักษณะส้วม</span>
-                <span class="font-medium text-slate-800">${env.toilet || '-'}</span>
-              </div>
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">น้ำบริโภค / น้ำอุปโภค</span>
-                <span class="font-medium text-slate-800">${env.drink_water || '-'} / ${env.utility_water || '-'}</span>
-              </div>
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">การจัดการขยะ</span>
-                <span class="font-medium text-slate-800">${env.waste_disposal || '-'} (แยก: ${env.waste_segregation || '-'})</span>
-              </div>
-              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                <span class="text-slate-400 block text-[10px]">การกำจัดน้ำเสีย</span>
-                <span class="font-medium text-slate-800">${env.wastewater_disposal || '-'}</span>
-              </div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">สุขาภิบาลสิ่งแวดล้อมรอบบ้าน</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">สภาพใน/รอบบ้าน</span><span class="font-medium">${env.inside_clean || '-'} / ${env.outside_clean || '-'}</span></div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">การระบายอากาศ/แสง</span><span class="font-medium">${env.ventilation || '-'} / ${env.lighting || '-'}</span></div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">ลักษณะส้วม</span><span class="font-medium">${env.toilet || '-'}</span></div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">น้ำบริโภค/อุปโภค</span><span class="font-medium">${env.drink_water || '-'} / ${env.utility_water || '-'}</span></div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">การจัดการขยะ</span><span class="font-medium">${env.waste_disposal || '-'}</span></div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100"><span class="text-slate-400 block text-[10px]">การกำจัดน้ำเสีย</span><span class="font-medium">${env.wastewater_disposal || '-'}</span></div>
             </div>
 
-            <!-- Pollution & Pets Indicators -->
             <div class="mt-3 flex flex-wrap gap-2 text-xs">
               ${env.dust && !env.dust.includes('ไม่มี') && env.dust !== '-' ? '<span class="badge badge-amber">มีฝุ่นละออง</span>' : '<span class="badge badge-slate">ไม่มีฝุ่น</span>'}
               ${env.smoke && !env.smoke.includes('ไม่มี') && env.smoke !== '-' ? '<span class="badge badge-amber">มีควัน</span>' : '<span class="badge badge-slate">ไม่มีควัน</span>'}
-              ${env.noise && !env.noise.includes('ไม่มี') && env.noise !== '-' ? `<span class="badge badge-amber">มีเสียง (${env.noise})</span>` : '<span class="badge badge-slate">ไม่มีเสียงรบกวน</span>'}
-              ${env.odor && !env.odor.includes('ไม่มี') && env.odor !== '-' ? `<span class="badge badge-rose">มีกลิ่น (${env.odor})</span>` : '<span class="badge badge-slate">ไม่มีกลิ่นเหม็น</span>'}
+              ${env.noise && !env.noise.includes('ไม่มี') && env.noise !== '-' ? `<span class="badge badge-amber">มีเสียง (${env.noise})</span>` : '<span class="badge badge-slate">ไม่มีเสียง</span>'}
+              ${env.odor && !env.odor.includes('ไม่มี') && env.odor !== '-' ? `<span class="badge badge-rose">มีกลิ่น (${env.odor})</span>` : '<span class="badge badge-slate">ไม่มีกลิ่น</span>'}
               ${env.has_pets && !env.has_pets.includes('ไม่เลี้ยง') ? `<span class="badge badge-blue">สัตว์เลี้ยง: ${env.pet_details || env.has_pets}</span>` : ''}
             </div>
           </div>
-
-          <!-- MCH & Mortality Section -->
-          ${mch.birth_last_3yrs !== '-' || mch.death_last_3yrs !== '-' || mch.pregnant === 'มี' || mch.under5_child === 'มี' ? `
-            <div class="pt-3 border-t border-slate-100">
-              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                อนามัยแม่และเด็ก / สถิติชีพ
-              </h3>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-slate-700">
-                <div class="bg-purple-50 p-2 rounded border border-purple-100">เด็กคลอด 3 ปี: <span class="font-medium">${mch.birth_last_3yrs || 'ไม่มี'}</span></div>
-                <div class="bg-purple-50 p-2 rounded border border-purple-100">เสียชีวิต 3 ปี: <span class="font-medium">${mch.death_last_3yrs || 'ไม่มี'}</span></div>
-                <div class="bg-purple-50 p-2 rounded border border-purple-100">หญิงตั้งครรภ์: <span class="font-medium">${mch.pregnant || 'ไม่มี'}</span></div>
-                <div class="bg-purple-50 p-2 rounded border border-purple-100">เด็ก 0-5 ปี: <span class="font-medium">${mch.under5_child || 'ไม่มี'}</span></div>
-              </div>
-            </div>
-          ` : ''}
-
         </div>
       `;
     }
 
-    window.onload = init;
+    window.onload = function() {
+      initCharts();
+      initFamilyTab();
+    };
   </script>
 </body>
 </html>
