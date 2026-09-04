@@ -603,7 +603,7 @@
       <div class="slide-card p-6 border-l-4 border-amber-500 space-y-6">
         <div class="text-center pb-4 border-b border-slate-100">
           <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 px-4 py-1 rounded-full text-xs font-bold mb-2">
-            <span>🥗</span> พฤติกรรมการบริโภคอาหาร (Dietary Habits)
+            พฤติกรรมการบริโภคอาหาร (Dietary Habits)
           </div>
           <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
             ร้อยละของครัวเรือน จำแนกตามพฤติกรรมการรับประทานอาหาร (N=70)
@@ -620,61 +620,70 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <!-- Card 1: โซเดียม -->
           <div class="bg-gradient-to-br from-red-50/70 to-rose-50/70 p-4 rounded-2xl border border-rose-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-200 flex items-center justify-center text-2xl flex-shrink-0">🧂</div>
+              <div class="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 text-rose-900 font-black flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
+                เค็ม
+              </div>
               <div>
-                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคโซเดียม &lt; 1 ช้อนชา</h4>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">การบริโภคโซเดียม (เกณฑ์ &lt; 1 ช้อนชา/วัน)</h4>
                 <span class="text-[11px] font-semibold text-rose-700">อาหารรสเค็ม / เครื่องปรุง</span>
               </div>
             </div>
             <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
-              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
-                <span>ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold border-b border-slate-200">
+                <span>ไม่ตามเกณฑ์ (เกินเกณฑ์)</span>
                 <span class="font-bold">67.14% <span class="text-[10px] font-normal text-slate-600">(47 หลัง)</span></span>
               </div>
-              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
-                <span>ไม่ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold">
+                <span>ตามเกณฑ์ (&lt; 1 ช้อนชา)</span>
                 <span class="font-bold">32.86% <span class="text-[10px] font-normal text-slate-600">(23 หลัง)</span></span>
               </div>
             </div>
           </div>
 
+          <!-- Card 2: น้ำตาล -->
           <div class="bg-gradient-to-br from-amber-50/70 to-yellow-50/70 p-4 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-200 flex items-center justify-center text-2xl flex-shrink-0">🌾</div>
+              <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-300 text-amber-950 font-black flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
+                หวาน
+              </div>
               <div>
-                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำตาล &lt; 6 ช้อนชา/วัน</h4>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">การบริโภคน้ำตาล (เกณฑ์ &lt; 6 ช้อนชา/วัน)</h4>
                 <span class="text-[11px] font-semibold text-amber-700">อาหารรสหวาน / ขนม / เครื่องดื่ม</span>
               </div>
             </div>
             <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
-              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
-                <span>ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold border-b border-slate-200">
+                <span>ไม่ตามเกณฑ์ (เกินเกณฑ์)</span>
                 <span class="font-bold">82.86% <span class="text-[10px] font-normal text-slate-600">(58 หลัง)</span></span>
               </div>
-              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
-                <span>ไม่ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold">
+                <span>ตามเกณฑ์ (&lt; 6 ช้อนชา)</span>
                 <span class="font-bold">17.14% <span class="text-[10px] font-normal text-slate-600">(12 หลัง)</span></span>
               </div>
             </div>
           </div>
 
+          <!-- Card 3: น้ำมัน -->
           <div class="bg-gradient-to-br from-emerald-50/70 to-teal-50/70 p-4 rounded-2xl border border-emerald-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-200 flex items-center justify-center text-2xl flex-shrink-0">🛢️</div>
+              <div class="w-10 h-10 rounded-xl bg-teal-100 border border-teal-300 text-teal-950 font-black flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
+                มัน
+              </div>
               <div>
-                <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำมัน &lt; 6 ช้อนชา/วัน</h4>
-                <span class="text-[11px] font-semibold text-emerald-700">อาหารทอด / ไขมันสูง</span>
+                <h4 class="font-bold text-sm text-slate-900 leading-tight">การบริโภคน้ำมัน (เกณฑ์ &lt; 6 ช้อนชา/วัน)</h4>
+                <span class="text-[11px] font-semibold text-teal-800">อาหารทอด / ไขมันสูง</span>
               </div>
             </div>
             <div class="overflow-hidden rounded-xl border border-slate-200 text-xs shadow-inner">
-              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold border-b border-slate-200">
-                <span>ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold border-b border-slate-200">
+                <span>ไม่ตามเกณฑ์ (เกินเกณฑ์)</span>
                 <span class="font-bold">82.86% <span class="text-[10px] font-normal text-slate-600">(58 หลัง)</span></span>
               </div>
-              <div class="flex justify-between items-center px-3 py-2 bg-rose-100/90 text-rose-900 font-semibold">
-                <span>ไม่ตามเกณฑ์</span>
+              <div class="flex justify-between items-center px-3 py-2 bg-emerald-100/90 text-emerald-900 font-semibold">
+                <span>ตามเกณฑ์ (&lt; 6 ช้อนชา)</span>
                 <span class="font-bold">17.14% <span class="text-[10px] font-normal text-slate-600">(12 หลัง)</span></span>
               </div>
             </div>
@@ -1866,24 +1875,24 @@
       });
 
       // 8.5 DIET CHART (Grouped Bar Chart, N=70 ครัวเรือน)
-      const ctxDiet = document.getElementById('dietChart').getContext('2d');
+                  const ctxDiet = document.getElementById('dietChart').getContext('2d');
       new Chart(ctxDiet, {
         type: 'bar',
         data: {
-          labels: ["บริโภคโซเดียม < 1 ช้อนชา", "บริโภคน้ำตาล < 6 ช้อนชา/วัน", "บริโภคน้ำมัน < 6 ช้อนชา/วัน"],
+          labels: ["การบริโภคโซเดียม (< 1 ช้อนชา/วัน)", "การบริโภคน้ำตาล (< 6 ช้อนชา/วัน)", "การบริโภคน้ำมัน (< 6 ช้อนชา/วัน)"],
           datasets: [
             {
-              label: 'ตามเกณฑ์',
+              label: 'ไม่ตามเกณฑ์ (บริโภคเกินเกณฑ์)',
               data: [67.14, 82.86, 82.86],
-              backgroundColor: '#10b981',
+              backgroundColor: '#ef4444',
               borderRadius: 6,
               barPercentage: 0.7,
               categoryPercentage: 0.6
             },
             {
-              label: 'ไม่ตามเกณฑ์',
+              label: 'ตามเกณฑ์',
               data: [32.86, 17.14, 17.14],
-              backgroundColor: '#ef4444',
+              backgroundColor: '#10b981',
               borderRadius: 6,
               barPercentage: 0.7,
               categoryPercentage: 0.6
@@ -1901,7 +1910,8 @@
             tooltip: {
               callbacks: {
                 label: function(ctx) {
-                  return ctx.dataset.label + ': ' + ctx.raw + '% (' + (ctx.datasetIndex === 0 ? [47, 58, 58][ctx.dataIndex] : [23, 12, 12][ctx.dataIndex]) + ' หลัง)';
+                  const count = ctx.datasetIndex === 0 ? [47, 58, 58][ctx.dataIndex] : [23, 12, 12][ctx.dataIndex];
+                  return ctx.dataset.label + ': ' + ctx.raw + '% (' + count + ' หลัง)';
                 }
               }
             }
@@ -1914,8 +1924,8 @@
               grid: { color: '#f1f5f9' }
             },
             x: {
-              ticks: { font: { family: 'Sarabun', size: 11, weight: 'bold' } },
-              grid: { display: false }
+              grid: { display: false },
+              ticks: { font: { family: 'Sarabun', size: 12, weight: '600' } }
             }
           }
         }
