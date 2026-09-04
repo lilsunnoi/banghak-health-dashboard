@@ -779,7 +779,7 @@
         <div class="slide-card p-6 flex flex-col justify-between border-l-4 border-rose-500">
           <div class="pb-3 border-b border-slate-100">
             <h3 class="text-xl font-bold text-slate-900">ประชากรที่มีและไม่มีโรคประจำตัว (N=204)</h3>
-            <p class="text-xs text-slate-500 font-medium">สัดส่วนผู้มีโรคเรื้อรัง (NCDs) ในชุมชนตำบลบางหัก ม.1</p>
+            <p class="text-xs text-slate-500 font-medium">เปรียบเทียบจำนวนประชากรที่มีและไม่มีโรคประจำตัว (N=204 คน)</p>
           </div>
 
           <div class="mt-4 h-60 flex items-center justify-center">
@@ -1962,23 +1962,50 @@
         }
       });
 
-      // Disease Pie Chart
+      //      // Disease Comparison Bar Chart (2 Bars)
       const ctxDisease = document.getElementById('diseasePieChart').getContext('2d');
       new Chart(ctxDisease, {
-        type: 'pie',
+        type: 'bar',
         data: {
           labels: ['ไม่มีโรคประจำตัว', 'มีโรคประจำตัว'],
           datasets: [{
-            data: [61.27, 38.73],
-            backgroundColor: ['#10b981', '#2563eb']
+            label: 'จำนวนประชากร',
+            data: [125, 79],
+            backgroundColor: ['#10b981', '#e11d48'],
+            borderRadius: 8,
+            borderSkipped: false,
+            barThickness: 48
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11 } } },
-            tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const pcts = [61.27, 38.73];
+                  return ctx.label + ': ' + ctx.raw + ' คน (' + pcts[ctx.dataIndex] + '%)';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 140,
+              ticks: {
+                stepSize: 20,
+                callback: function(v) { return v + ' คน'; },
+                font: { family: 'Sarabun', size: 11 }
+              },
+              grid: { color: '#f1f5f9' }
+            },
+            x: {
+              ticks: { font: { family: 'Sarabun', size: 12, weight: 'bold' } },
+              grid: { display: false }
+            }
           }
         }
       });
