@@ -120,7 +120,7 @@
             ชุมชนหมู่ที่ 1 ตำบลบางหัก อำเภอพานทอง จังหวัดชลบุรี (70 ครัวเรือน)
           </p>
           <div class="mt-2 inline-block bg-amber-50 border border-amber-200 text-amber-800 text-sm px-4 py-1 rounded-full font-medium shadow-sm">
-            🎯 มีจำนวนผู้สูงอายุที่มีอายุ 60 ปีขึ้นไป จำนวน <strong class="text-amber-900 font-bold">87 คน</strong> คิดเป็นร้อยละ <strong class="text-amber-900 font-bold">42.65%</strong>
+            <span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1"></span> มีจำนวนผู้สูงอายุที่มีอายุ 60 ปีขึ้นไป จำนวน <strong class="text-amber-900 font-bold">87 คน</strong> คิดเป็นร้อยละ <strong class="text-amber-900 font-bold">42.65%</strong>
           </div>
         </div>
 
@@ -144,7 +144,7 @@
           <div class="lg:col-span-3 space-y-4">
             <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-2xl border border-rose-200 text-center shadow-sm">
               <div class="w-16 h-16 mx-auto rounded-full bg-rose-500/10 flex items-center justify-center mb-2">
-                <span class="text-3xl">👩</span>
+                <span class="text-2xl font-bold text-rose-600">♀</span>
               </div>
               <div class="text-xs font-bold uppercase text-rose-600">เพศหญิง</div>
               <div class="text-3xl font-black text-rose-700 mt-0.5">97 <span class="text-sm font-medium text-slate-500">คน</span></div>
@@ -153,7 +153,7 @@
 
             <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-200 text-center shadow-sm">
               <div class="w-16 h-16 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-2">
-                <span class="text-3xl">👨</span>
+                <span class="text-2xl font-bold text-blue-600">♂</span>
               </div>
               <div class="text-xs font-bold uppercase text-blue-600">เพศชาย</div>
               <div class="text-3xl font-black text-blue-700 mt-0.5">107 <span class="text-sm font-medium text-slate-500">คน</span></div>
@@ -1710,22 +1710,23 @@
       chartsInitialized = true;
 
       // 1. Pyramid Chart (Female: 97, Male: 107)
+      // 1. POPULATION PYRAMID (N=204)
       const ctxPyramid = document.getElementById('pyramidChart').getContext('2d');
       new Chart(ctxPyramid, {
         type: 'bar',
         data: {
-          labels: ["ต่ำกว่า 15 ปี", "15–24 ปี", "25–44 ปี", "45–59 ปี", "60 ปีขึ้นไป"],
+          labels: ["60 ปีขึ้นไป", "45–59 ปี", "25–44 ปี", "15–24 ปี", "ต่ำกว่า 15 ปี"],
           datasets: [
             {
               label: 'เพศหญิง',
-              data: [-7, -7, -13, -20, -50],
+              data: [-50, -20, -13, -7, -7],
               backgroundColor: '#f43f5e',
               borderRadius: 4,
               borderSkipped: false
             },
             {
               label: 'เพศชาย',
-              data: [13, 13, 19, 25, 37],
+              data: [37, 25, 19, 13, 13],
               backgroundColor: '#2563eb',
               borderRadius: 4,
               borderSkipped: false
@@ -1750,7 +1751,9 @@
             x: {
               stacked: false,
               ticks: { callback: function(v) { return Math.abs(v); } },
-              grid: { color: '#e2e8f0' }
+              grid: { color: '#f1f5f9' },
+              min: -50,
+              max: 40
             },
             y: {
               stacked: true,
