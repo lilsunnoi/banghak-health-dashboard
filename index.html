@@ -835,6 +835,153 @@
 
       </div>
 
+      <!-- SLIDE 11: สถิติสุขภาพสตรีและการวางแผนครอบครัว (Women's Health & Family Planning) -->
+      <div class="slide-card p-6 border-l-4 border-pink-500 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="badge badge-rose">อนามัยแม่และเด็ก & สุขภาพสตรี</span>
+              <span class="text-xs text-slate-400 font-bold uppercase">Women's Health & Family Planning</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mt-1">การคัดกรองมะเร็งสตรีและการคุมกำเนิดในชุมชน</h3>
+            <p class="text-xs text-slate-500 font-medium">ข้อมูลการตรวจคัดกรองมะเร็งปากมดลูก (30–60 ปี), มะเร็งเต้านม (30–70 ปี) และการคุมกำเนิดในหญิงวัยเจริญพันธุ์ (15–49 ปี)</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="badge badge-blue">ประชากรหญิงทั้งหมด 97 คน</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- 1. มะเร็งปากมดลูก (30-60 ปี) -->
+          <div class="bg-gradient-to-b from-rose-50/50 to-white p-5 rounded-2xl border border-rose-100 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-rose-100">
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                    <span>🎗️</span> คัดกรองมะเร็งปากมดลูก
+                  </h4>
+                  <p class="text-[11px] text-slate-500 font-medium">สตรีอายุ 30–60 ปี (เป้าหมาย N=32 คน)</p>
+                </div>
+                <span class="badge badge-rose text-[10px]">เคยตรวจ 56.25%</span>
+              </div>
+
+              <div class="h-48 my-3 flex items-center justify-center relative">
+                <canvas id="cervicalChart"></canvas>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-rose-100 shadow-xs">
+                  <span class="font-bold text-rose-700 flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> เคยตรวจคัดกรอง
+                  </span>
+                  <span class="font-black text-rose-800">18 คน (56.25%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <span class="font-bold text-slate-600 flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span> ไม่เคยตรวจ / ไม่ระบุ
+                  </span>
+                  <span class="font-black text-slate-700">14 คน (43.75%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-rose-100/80 text-[11px] text-slate-600 space-y-1 bg-rose-50/40 p-2.5 rounded-xl">
+              <div>✅ <strong>ผลการตรวจ:</strong> ปกติทั้งหมด 100% (18 ราย)</div>
+              <div>🔬 <strong>วิธีตรวจ:</strong> ตรวจโดย จนท.สาธารณสุข / Pap Smear / HPV DNA</div>
+              <div class="text-slate-500">⚠️ <em>เหตุผลที่ยังไม่ตรวจ:</em> ไม่มีครอบครัว/โสด, ไม่ได้ไปพบแพทย์, ไม่ต้องการตรวจ</div>
+            </div>
+          </div>
+
+          <!-- 2. มะเร็งเต้านม (30-70 ปี) -->
+          <div class="bg-gradient-to-b from-pink-50/50 to-white p-5 rounded-2xl border border-pink-100 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-pink-100">
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                    <span>🌸</span> คัดกรองมะเร็งเต้านม
+                  </h4>
+                  <p class="text-[11px] text-slate-500 font-medium">สตรีอายุ 30–70 ปี (เป้าหมาย N=50 คน)</p>
+                </div>
+                <span class="badge badge-green text-[10px]">เคยตรวจ 80.00%</span>
+              </div>
+
+              <div class="h-48 my-3 flex items-center justify-center relative">
+                <canvas id="breastChart"></canvas>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-pink-100 shadow-xs">
+                  <span class="font-bold text-pink-700 flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500 inline-block"></span> เคยตรวจเต้านม
+                  </span>
+                  <span class="font-black text-pink-800">40 คน (80.00%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <span class="font-bold text-slate-600 flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span> ไม่เคยตรวจ / ไม่ระบุ
+                  </span>
+                  <span class="font-black text-slate-700">10 คน (20.00%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-pink-100/80 text-[11px] text-slate-600 space-y-1 bg-pink-50/40 p-2.5 rounded-xl">
+              <div>✅ <strong>ผลการตรวจ:</strong> ปกติทั้งหมด 100% (40 ราย)</div>
+              <div>🖐️ <strong>วิธีตรวจ:</strong> คลำตรวจด้วยตนเอง (BSE) และตรวจโดย จนท.</div>
+              <div class="text-slate-500">⚠️ <em>เหตุผลที่ยังไม่ตรวจ:</em> ไม่ต้องการตรวจ (4 ราย), ไม่ทราบข้อมูลข่าวสาร (1 ราย), ไม่ระบุ (5 ราย)</div>
+            </div>
+          </div>
+
+          <!-- 3. การคุมกำเนิด (หญิง 15-49 ปี) -->
+          <div class="bg-gradient-to-b from-teal-50/50 to-white p-5 rounded-2xl border border-teal-100 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-teal-100">
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                    <span>💊</span> การคุมกำเนิด (วัยเจริญพันธุ์)
+                  </h4>
+                  <p class="text-[11px] text-slate-500 font-medium">หญิงอายุ 15–49 ปี (เป้าหมาย N=29 คน)</p>
+                </div>
+                <span class="badge badge-amber text-[10px]">คุมกำเนิด 20.69%</span>
+              </div>
+
+              <div class="h-48 my-3 flex items-center justify-center relative">
+                <canvas id="contraChart"></canvas>
+              </div>
+
+              <div class="space-y-1.5 text-xs">
+                <div class="flex items-center justify-between p-1.5 rounded-lg bg-white border border-teal-100 shadow-xs">
+                  <span class="font-bold text-teal-700 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-teal-600 inline-block"></span> คุมกำเนิด
+                  </span>
+                  <span class="font-black text-teal-800">6 คน (20.69%)</span>
+                </div>
+                <div class="flex items-center justify-between p-1.5 rounded-lg bg-white border border-amber-100 shadow-xs">
+                  <span class="font-bold text-amber-700 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> ไม่คุมกำเนิด
+                  </span>
+                  <span class="font-black text-amber-800">4 คน (13.79%)</span>
+                </div>
+                <div class="flex items-center justify-between p-1.5 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <span class="font-bold text-slate-500 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span> โสด / ไม่แต่งงาน / ไม่ระบุ
+                  </span>
+                  <span class="font-black text-slate-600">19 คน (65.52%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-teal-100/80 text-[11px] text-slate-600 space-y-1 bg-teal-50/40 p-2.5 rounded-xl">
+              <div>📊 <strong>คิดเฉพาะผู้ตอบคำถาม (N=10):</strong> คุม 60.0% | ไม่คุม 40.0%</div>
+              <div>💉 <strong>วิธีที่ใช้ (6 ราย):</strong> ยาฉีด 4 ราย (66.7%), ยาเม็ด 1 ราย, ยาเม็ด+ฝัง 1 ราย</div>
+              <div class="text-slate-500">💡 <em>กลุ่มไม่คุมกำเนิด:</em> มี 1 รายระบุว่าต้องการมีบุตร</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <!-- TAB 2: FAMILY FOLDER -->
@@ -1283,6 +1430,103 @@
             legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11 } } },
             tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; } } }
           }
+        }
+      });
+
+
+      // Cervical Cancer Chart (สตรี 30-60 ปี, N=32)
+      const ctxCervical = document.getElementById('cervicalChart').getContext('2d');
+      new Chart(ctxCervical, {
+        type: 'doughnut',
+        data: {
+          labels: ['เคยตรวจคัดกรอง', 'ไม่เคยตรวจ / ไม่ระบุ'],
+          datasets: [{
+            data: [18, 14],
+            backgroundColor: ['#e11d48', '#e2e8f0'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11, weight: 'bold' } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const total = 32;
+                  const pct = ((ctx.raw / total) * 100).toFixed(2);
+                  return ctx.label + ': ' + ctx.raw + ' คน (' + pct + '%)';
+                }
+              }
+            }
+          },
+          cutout: '65%'
+        }
+      });
+
+      // Breast Cancer Chart (สตรี 30-70 ปี, N=50)
+      const ctxBreast = document.getElementById('breastChart').getContext('2d');
+      new Chart(ctxBreast, {
+        type: 'doughnut',
+        data: {
+          labels: ['เคยตรวจเต้านม', 'ไม่เคยตรวจ / ไม่ระบุ'],
+          datasets: [{
+            data: [40, 10],
+            backgroundColor: ['#ec4899', '#e2e8f0'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 11, weight: 'bold' } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const total = 50;
+                  const pct = ((ctx.raw / total) * 100).toFixed(2);
+                  return ctx.label + ': ' + ctx.raw + ' คน (' + pct + '%)';
+                }
+              }
+            }
+          },
+          cutout: '65%'
+        }
+      });
+
+      // Contraception Chart (หญิง 15-49 ปี, N=29)
+      const ctxContra = document.getElementById('contraChart').getContext('2d');
+      new Chart(ctxContra, {
+        type: 'doughnut',
+        data: {
+          labels: ['คุมกำเนิด (ยาฉีด/ยาเม็ด/ฝัง)', 'ไม่คุมกำเนิด', 'โสด / ยังไม่แต่งงาน / ไม่ระบุ'],
+          datasets: [{
+            data: [6, 4, 19],
+            backgroundColor: ['#0d9488', '#f59e0b', '#cbd5e1'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 10 } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const total = 29;
+                  const pct = ((ctx.raw / total) * 100).toFixed(2);
+                  return ctx.label + ': ' + ctx.raw + ' คน (' + pct + '%)';
+                }
+              }
+            }
+          },
+          cutout: '65%'
         }
       });
 
