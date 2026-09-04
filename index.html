@@ -87,7 +87,7 @@
       <div class="flex gap-2 mt-6 pt-4 border-t border-white/15 flex-wrap">
         <button id="tabBtnCharts" onclick="switchTab('charts')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-900 shadow-md flex items-center gap-2">
           <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          📊 กราฟการเปรียบเทียบข้อมูล (11 สไลด์สถิติ)
+          📊 กราฟการเปรียบเทียบข้อมูล (สถิติสุขภาพชุมชน)
         </button>
         <button id="tabBtnFamily" onclick="switchTab('family')" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-white/90 hover:bg-white/10 flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -98,7 +98,7 @@
       <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
     </header>
 
-    <!-- TAB 1: ALL 11 COMPARISON CHARTS -->
+    <!-- TAB 1: ALL COMPARISON CHARTS -->
     <div id="tabCharts" class="space-y-6">
 
       <div class="flex items-center gap-2 pt-2">
@@ -404,7 +404,7 @@
               </div>
 
               <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-between">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2.5">
                   <span class="rank-medal medal-3 text-xs w-7 h-7">🥉 3</span>
                   <span class="font-bold text-xs text-orange-950">พนักงานบริษัท</span>
                 </div>
@@ -623,15 +623,10 @@
           </div>
         </div>
 
-        <!-- 3 Cards below the chart matching the slide -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-          
-          <!-- SALT Card -->
           <div class="bg-gradient-to-br from-red-50/70 to-rose-50/70 p-4 rounded-2xl border border-rose-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-200 flex items-center justify-center text-2xl flex-shrink-0">
-                🧂
-              </div>
+              <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-200 flex items-center justify-center text-2xl flex-shrink-0">🧂</div>
               <div>
                 <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคโซเดียม &lt; 1 ช้อนชา</h4>
                 <span class="text-[11px] font-semibold text-rose-700">อาหารรสเค็ม / เครื่องปรุง</span>
@@ -649,12 +644,9 @@
             </div>
           </div>
 
-          <!-- SUGAR Card -->
           <div class="bg-gradient-to-br from-amber-50/70 to-yellow-50/70 p-4 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-200 flex items-center justify-center text-2xl flex-shrink-0">
-                🌾
-              </div>
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-200 flex items-center justify-center text-2xl flex-shrink-0">🌾</div>
               <div>
                 <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำตาล &lt; 6 ช้อนชา/วัน</h4>
                 <span class="text-[11px] font-semibold text-amber-700">อาหารรสหวาน / ขนม / เครื่องดื่ม</span>
@@ -672,12 +664,9 @@
             </div>
           </div>
 
-          <!-- OIL Card -->
           <div class="bg-gradient-to-br from-emerald-50/70 to-teal-50/70 p-4 rounded-2xl border border-emerald-200 shadow-sm flex flex-col justify-between">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-200 flex items-center justify-center text-2xl flex-shrink-0">
-                🛢️
-              </div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-200 flex items-center justify-center text-2xl flex-shrink-0">🛢️</div>
               <div>
                 <h4 class="font-bold text-sm text-slate-900 leading-tight">บริโภคน้ำมัน &lt; 6 ช้อนชา/วัน</h4>
                 <span class="text-[11px] font-semibold text-emerald-700">อาหารทอด / ไขมันสูง</span>
@@ -694,8 +683,105 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- SLIDE: บูรณาการภาพรวมสถานการณ์โรคเรื้อรังและภาวะโรคร่วม (NEW COMBINED OVERVIEW) -->
+      <div class="slide-card p-6 border-l-4 border-rose-600 space-y-6">
+        <div class="text-center pb-4 border-b border-slate-100">
+          <div class="inline-flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-900 px-4 py-1 rounded-full text-xs font-bold mb-2">
+            <span>🩺</span> ภาพรวมสถานการณ์โรคเรื้อรัง & ภาวะโรคร่วม (Integrated Multimorbidity Overview)
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+            แผนภาพรวมการกระจายตัวของโรคเรื้อรังและภาวะโรคร่วม
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            เชื่อมโยงจากประชากรทั้งหมด (N=204) ➔ สัดส่วนคนมีโรค (N=79) ➔ การกระจายจำนวนโรคต่อคน ➔ อัตราความชุกของแต่ละโรค
+          </p>
+        </div>
+
+        <!-- 3 Level Funnel Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-200 text-center">
+            <div class="text-xs font-bold text-blue-900 uppercase">ระดับที่ 1: ประชากรทั้งหมด</div>
+            <div class="text-3xl font-black text-blue-800 my-1">N = 204 <span class="text-xs font-normal text-slate-600">คน</span></div>
+            <div class="flex justify-center gap-2 text-xs font-semibold mt-2 pt-2 border-t border-blue-200/60">
+              <span class="text-emerald-700">ไม่มีโรค: 125 (61.27%)</span>
+              <span class="text-slate-300">|</span>
+              <span class="text-rose-700">มีโรค: 79 (38.73%)</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-2xl border border-rose-200 text-center">
+            <div class="text-xs font-bold text-rose-900 uppercase">ระดับที่ 2: กลุ่มคนมีโรคเรื้อรัง</div>
+            <div class="text-3xl font-black text-rose-700 my-1">N = 79 <span class="text-xs font-normal text-slate-600">คน</span></div>
+            <div class="flex justify-center gap-2 text-xs font-semibold mt-2 pt-2 border-t border-rose-200/60">
+              <span class="text-blue-700">โรคเดี่ยว: 28 คน (35.4%)</span>
+              <span class="text-slate-300">|</span>
+              <span class="text-amber-800 font-bold">โรคร่วม 2+ โรค: 51 คน (64.6%)</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-200 text-center">
+            <div class="text-xs font-bold text-amber-900 uppercase">ระดับที่ 3: จำนวนการวินิจฉัยโรค</div>
+            <div class="text-3xl font-black text-amber-800 my-1">N = 170 <span class="text-xs font-normal text-slate-600">ครั้ง</span></div>
+            <div class="text-xs text-amber-800/90 font-semibold mt-2 pt-2 border-t border-amber-200/60">
+              เฉลี่ย 2.15 โรค/ผู้ป่วย 1 คน (ตอบได้หลายโรค)
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Visual Charts Side-by-Side -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <!-- LEFT: Donut of Multi-morbidity -->
+          <div class="lg:col-span-5 bg-slate-50/70 p-4 rounded-2xl border border-slate-100 flex flex-col justify-between">
+            <div class="pb-2 border-b border-slate-200/60 flex items-center justify-between">
+              <h4 class="font-bold text-sm text-slate-800 flex items-center gap-1.5">
+                <span>🔄</span> สัดส่วนจำนวนโรคต่อคน (N=79 คน)
+              </h4>
+              <span class="badge badge-amber text-[10px]">โรคร่วม 64.6%</span>
+            </div>
+            <div class="h-60 flex items-center justify-center my-2">
+              <canvas id="multiMorbidityChart"></canvas>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5 text-[11px] pt-2 border-t border-slate-200/60">
+              <div class="p-1.5 bg-blue-50 rounded border border-blue-100 font-medium text-blue-950">1 โรค: 28 คน (35.44%)</div>
+              <div class="p-1.5 bg-amber-50 rounded border border-amber-100 font-medium text-amber-950">2 โรค: 23 คน (29.11%)</div>
+              <div class="p-1.5 bg-orange-50 rounded border border-orange-100 font-medium text-orange-950">3 โรค: 20 คน (25.32%)</div>
+              <div class="p-1.5 bg-rose-50 rounded border border-rose-100 font-medium text-rose-950">4-5 โรค: 8 คน (10.13%)</div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Horizontal Bar of Top Diseases with dual metrics -->
+          <div class="lg:col-span-7 bg-slate-50/70 p-4 rounded-2xl border border-slate-100">
+            <div class="pb-2 border-b border-slate-200/60 flex items-center justify-between">
+              <h4 class="font-bold text-sm text-slate-800 flex items-center gap-1.5">
+                <span>📊</span> อันดับโรคเรื้อรังที่พบ (1 คนมีได้หลายโรค)
+              </h4>
+              <span class="badge badge-rose text-[10px]">อิงกลุ่มคนป่วย N=79</span>
+            </div>
+            <div class="h-72 w-full mt-2">
+              <canvas id="combinedChronicChart"></canvas>
+            </div>
+          </div>
 
         </div>
+
+        <!-- Callout Banner: Key Medical Insights -->
+        <div class="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-rose-500/10 p-4 rounded-2xl border border-amber-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl flex-shrink-0">💡</span>
+            <div>
+              <span class="font-bold text-slate-900 block text-sm">ข้อค้นพบสำคัญ: ภาวะโรคร่วม 3 สหาย (Triad Cluster)</span>
+              <span class="text-slate-600">ในกลุ่มผู้ป่วย 79 คน มีถึง <strong>51 คน (64.6%)</strong> ที่ป่วยพร้อมกันตั้งแต่ 2 โรคขึ้นไป โดยชุดโรคร่วมที่พบมากที่สุดคือ <strong>"ความดันโลหิตสูง + เบาหวาน + ไขมันในเลือดสูง"</strong></span>
+            </div>
+          </div>
+          <div class="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-amber-200 text-amber-900 font-bold whitespace-nowrap shadow-sm text-center">
+            ชุด 3 สหาย: 18 ราย
+          </div>
+        </div>
+
       </div>
 
       <!-- SLIDE: มีโรคประจำตัว vs ไม่มีโรคประจำตัว & สถานพยาบาล -->
@@ -713,18 +799,14 @@
 
           <div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100">
             <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-2xl border border-emerald-200 text-center shadow-sm">
-              <div class="w-9 h-9 mx-auto rounded-full bg-emerald-500 text-white font-black text-lg flex items-center justify-center mb-1">
-                ✓
-              </div>
+              <div class="w-9 h-9 mx-auto rounded-full bg-emerald-500 text-white font-black text-lg flex items-center justify-center mb-1">✓</div>
               <div class="text-xs font-bold text-emerald-950">ไม่มีโรคประจำตัว</div>
               <div class="text-2xl font-black text-emerald-700 mt-1">125 <span class="text-xs font-normal text-slate-500">คน</span></div>
               <div class="text-xs text-emerald-700 font-bold mt-0.5">คิดเป็นร้อยละ 61.27%</div>
             </div>
 
             <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-2xl border border-rose-200 text-center shadow-sm">
-              <div class="w-9 h-9 mx-auto rounded-full bg-rose-500 text-white font-black text-lg flex items-center justify-center mb-1">
-                ✕
-              </div>
+              <div class="w-9 h-9 mx-auto rounded-full bg-rose-500 text-white font-black text-lg flex items-center justify-center mb-1">✕</div>
               <div class="text-xs font-bold text-rose-950">มีโรคประจำตัว</div>
               <div class="text-2xl font-black text-rose-700 mt-1">79 <span class="text-xs font-normal text-slate-500">คน</span></div>
               <div class="text-xs text-rose-700 font-bold mt-0.5">คิดเป็นร้อยละ 38.73%</div>
@@ -762,24 +844,6 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- SLIDE: Top Chronic Diseases Breakdown -->
-      <div class="slide-card p-6 border-l-4 border-rose-500">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div class="flex items-center gap-3">
-            <span class="text-3xl">🩺</span>
-            <div>
-              <h3 class="text-xl font-bold text-slate-900">อันดับโรคเรื้อรังที่พบมากที่สุด (Top Chronic Diseases)</h3>
-              <p class="text-xs text-slate-500 font-medium">เปรียบเทียบจำนวนผู้ป่วยโรคประจำตัวในชุมชนตำบลบางหัก ม.1</p>
-            </div>
-          </div>
-          <span class="badge badge-rose text-xs px-3 py-1 font-bold">รวม 79 ผู้ป่วย</span>
-        </div>
-
-        <div class="mt-4 h-64">
-          <canvas id="chronicChart"></canvas>
-        </div>
       </div>
 
     </div>
@@ -1074,7 +1138,7 @@
         }
       });
 
-      // 8.5 NEW DIET CHART (Grouped Bar Chart, N=70 ครัวเรือน)
+      // 8.5 DIET CHART (Grouped Bar Chart, N=70 ครัวเรือน)
       const ctxDiet = document.getElementById('dietChart').getContext('2d');
       new Chart(ctxDiet, {
         type: 'bar',
@@ -1130,6 +1194,88 @@
         }
       });
 
+      // 9. NEW INTEGRATED MULTIMORBIDITY DONUT CHART (N=79)
+      const ctxMulti = document.getElementById('multiMorbidityChart').getContext('2d');
+      new Chart(ctxMulti, {
+        type: 'doughnut',
+        data: {
+          labels: ["1 โรค (โรคเดี่ยว)", "2 โรค", "3 โรค", "4–5 โรคขึ้นไป"],
+          datasets: [{
+            data: [28, 23, 20, 8],
+            backgroundColor: ['#3b82f6', '#f59e0b', '#f97316', '#ef4444'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 10, weight: 'bold' } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.label + ': ' + ctx.raw + ' คน (' + [35.44, 29.11, 25.32, 10.13][ctx.dataIndex] + '%)';
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // 10. NEW INTEGRATED CHRONIC DISEASES HORIZONTAL BAR CHART (N=79)
+      const ctxComb = document.getElementById('combinedChronicChart').getContext('2d');
+      new Chart(ctxComb, {
+        type: 'bar',
+        data: {
+          labels: ["ความดันโลหิตสูง", "เบาหวาน", "ไขมันในเลือดสูง", "ต่อมลูกหมากโต", "โรคหัวใจ", "โรคไต", "ไทรอยด์", "โรคหลอดเลือดสมอง"],
+          datasets: [
+            {
+              label: 'ร้อยละเทียบกับผู้ป่วย (N=79 คน)',
+              data: [65.82, 46.84, 37.97, 7.59, 5.06, 5.06, 5.06, 3.8],
+              backgroundColor: '#e11d48',
+              borderRadius: 6
+            },
+            {
+              label: 'ร้อยละเทียบกับชุมชน (N=204 คน)',
+              data: [25.49, 18.14, 14.71, 2.94, 1.96, 1.96, 1.96, 1.47],
+              backgroundColor: '#94a3b8',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { font: { family: 'Sarabun', size: 11, weight: 'bold' } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const cnt = [52, 37, 30, 6, 4, 4, 4, 3][ctx.dataIndex];
+                  return ctx.dataset.label + ': ' + ctx.raw + '% (' + cnt + ' คน)';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 75,
+              ticks: { callback: function(v) { return v + '%'; } },
+              grid: { color: '#f1f5f9' }
+            },
+            y: {
+              ticks: { font: { family: 'Sarabun', size: 11, weight: 'bold' } }
+            }
+          }
+        }
+      });
+
       // Disease Pie Chart
       const ctxDisease = document.getElementById('diseasePieChart').getContext('2d');
       new Chart(ctxDisease, {
@@ -1172,31 +1318,6 @@
           scales: {
             x: { beginAtZero: true, ticks: { stepSize: 40 } },
             y: { ticks: { font: { family: 'Sarabun', size: 10 } } }
-          }
-        }
-      });
-
-      // Chronic Diseases Horizontal Bar
-      const ctxChronic = document.getElementById('chronicChart').getContext('2d');
-      new Chart(ctxChronic, {
-        type: 'bar',
-        data: {
-          labels: ["ความดันโลหิตสูง", "เบาหวาน", "ไขมันในเลือดสูง", "เกาต์", "ต่อมลูกหมากโต", "โรคหลอดเลือดสมอง"],
-          datasets: [{
-            label: 'จำนวนผู้ป่วย (คน)',
-            data: [52, 37, 31, 4, 4, 3],
-            backgroundColor: '#e11d48',
-            borderRadius: 6
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { beginAtZero: true, ticks: { stepSize: 10 } },
-            y: { ticks: { font: { family: 'Sarabun', size: 11, weight: 'bold' } } }
           }
         }
       });
