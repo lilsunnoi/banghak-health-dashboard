@@ -1504,7 +1504,8 @@
             </h3>
             <div class="space-y-3">
               ${item.members.map(m => {
-                const ageDisp = isNaN(parseInt(m.age)) ? m.age : (m.age + ' ปี');
+                const strAge = String(m.age || '').trim();
+                const ageDisp = (strAge.includes('เดือน') || strAge.includes('ปี')) ? strAge : (strAge + ' ปี');
                 return `
                   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
