@@ -836,415 +836,442 @@
       </div>
 
 
-      <!-- SLIDE: แผนภูมิการเจ็บป่วยเรื้อรังของประชากรในพื้นที่ทั้งหมด 28 รายการ (n = 204 คน) -->
-      <div class="slide-card p-6 border-l-4 border-blue-600 space-y-5">
-        
-        <!-- Header Banner matching Presentation Slide -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-          <div class="bg-[#004b9b] text-white px-6 py-2.5 rounded-full shadow-sm text-center md:text-left">
-            <h3 class="text-lg sm:text-xl font-bold tracking-tight">
-              การเจ็บป่วยเรื้อรังของประชากรในพื้นที่ (n = 204 คน)
-            </h3>
-          </div>
 
-          <div class="flex items-center gap-2 self-end md:self-center">
-            <div class="bg-[#004b9b] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs text-center min-w-[80px]">
-              จำนวน<br><span class="text-[10px] font-normal opacity-90">(คน)</span>
-            </div>
-            <div class="bg-[#f59e0b] text-slate-900 text-xs font-bold px-4 py-2 rounded-xl shadow-xs text-center min-w-[110px]">
-              ร้อยละ<br><span class="text-[10px] font-medium opacity-90">(ของประชากรทั้งหมด)</span>
-            </div>
-          </div>
+      <!-- SLIDE: แผนภูมิการเจ็บป่วยเรื้อรังของประชากรในพื้นที่ (n = 204 คน) -->
+      <div class="slide-card p-6 border-l-4 border-blue-600 space-y-6">
+<!-- Top Slide Header Banner -->
+    <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <!-- Decorative Corner Shapes -->
+      <div class="absolute -top-8 -left-8 w-24 h-12 bg-amber-400 transform -rotate-12 rounded-2xl opacity-80 pointer-events-none"></div>
+      <div class="absolute -top-8 -left-2 w-28 h-6 bg-blue-600 transform -rotate-12 rounded-2xl opacity-90 pointer-events-none"></div>
+
+      <!-- Main Title Pill -->
+      <div class="z-10 bg-[#004b9b] text-white px-8 py-3 rounded-full shadow-md text-center md:text-left">
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">
+          การเจ็บป่วยเรื้อรังของประชากรในพื้นที่ (n = 204 คน)
+        </h1>
+      </div>
+
+      <!-- Table Header Indicators -->
+      <div class="z-10 flex items-center gap-2 self-end md:self-center">
+        <div class="bg-[#004b9b] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs text-center min-w-[85px]">
+          จำนวน<br><span class="text-[11px] font-normal opacity-90">(คน)</span>
         </div>
+        <div class="bg-[#f59e0b] text-slate-900 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs text-center min-w-[115px]">
+          ร้อยละ<br><span class="text-[11px] font-medium opacity-90">(ของประชากรทั้งหมด)</span>
+        </div>
+      </div>
+    </div>
 
-        <div class="flex items-center justify-between px-2">
-          <div class="bg-amber-400 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-full shadow-xs">
+    <!-- Main Content Layout: Left (27 Disease Bars) + Right (Top 3 Ranking) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Left Column: 27 Diseases Bars (8 Cols) -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <div class="flex items-center justify-between px-1">
+          <div class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-bold px-5 py-1.5 rounded-full shadow-xs">
             โรคประจำตัว
           </div>
           <div class="text-xs text-slate-400 font-medium">
-            รวมการเกิดโรคเรื้อรังทั้งหมด 28 รายการ (ผู้ตอบ 1 คนมีได้หลายโรค)
+            จำแนกตามรายโรคเรื้อรัง
           </div>
         </div>
 
-        <!-- 28 Disease Bars List -->
-        <div class="space-y-1 text-xs sm:text-sm">
+        <!-- 27 Disease Bars -->
+        <div class="space-y-1.5 text-xs sm:text-sm">
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">1</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ไม่มีโรคประจำตัว</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 91.1%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">54.7%</span>
+          <!-- 1. ความดันโลหิตสูง (25.4% / 30% = 84.7%) -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 bg-amber-50/50 hover:bg-amber-50 rounded-lg px-2 border border-amber-200/70 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs">1</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">ความดันโลหิตสูง</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 84.7%;"></div>
+                <span class="ml-2 font-bold text-slate-800 text-xs shrink-0">25.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">54</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">25.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">116</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">54.7</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">2</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ความดันโลหิตสูง</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 42.3%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">25.4%</span>
+          <!-- 2. เบาหวาน (17.9% / 30% = 59.7%) -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 bg-blue-50/40 hover:bg-blue-50 rounded-lg px-2 border border-blue-200/70 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs">2</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">เบาหวาน</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 59.7%;"></div>
+                <span class="ml-2 font-bold text-slate-800 text-xs shrink-0">17.9%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">38</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">17.9</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">54</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">25.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">3</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">เบาหวาน</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 29.8%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">17.9%</span>
+          <!-- 3. ไขมันในเลือดสูง (15.0% / 30% = 50.0%) -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 bg-indigo-50/40 hover:bg-indigo-50 rounded-lg px-2 border border-indigo-200/70 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs">3</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">ไขมันในเลือดสูง</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 50.0%;"></div>
+                <span class="ml-2 font-bold text-slate-800 text-xs shrink-0">15.0%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">32</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">15.0</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">38</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">17.9</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">4</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ไขมันในเลือดสูง</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 25.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">15.0%</span>
+          <!-- 4 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">4</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">ต่อมลูกหมากโต</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 9.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">2.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">6</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">2.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">32</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">15.0</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">5</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ต่อมลูกหมากโต</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 4.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">2.8%</span>
+          <!-- 5 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">5</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">โรคหัวใจ</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">6</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">2.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">6</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">โรคหัวใจ</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 6 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">6</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">โรคไทรอยด์</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">7</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">โรคไทรอยด์</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 7 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">7</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">โรคไต/ไตวาย</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">8</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">โรคไต/ไตวาย</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 8 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">8</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">โรคหลอดเลือดสมอง</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">9</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">โรคหลอดเลือดสมอง</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 9 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">9</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">ข้อเข่าเสื่อม/ปัญหาข้อเข่า</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">10</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ข้อเข่าเสื่อม/ปัญหาข้อเข่า</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 10 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">10</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">พิการ/ทุพพลภาพ</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 6.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">4</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.8</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">11</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">พิการ/ทุพพลภาพ</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 3.0%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.8%</span>
+          <!-- 11 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">11</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">หอบหืด</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 4.7%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">3</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">4</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.8</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">12</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">หอบหืด</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 2.3%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+          <!-- 12 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">12</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">ภูมิแพ้</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 4.7%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">3</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">3</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">13</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">ภูมิแพ้</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 2.3%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+          <!-- 13 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">13</div>
+            <div class="w-36 sm:w-44 font-bold text-slate-900 truncate shrink-0">รูมาตอยด์</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 4.7%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-bold text-slate-900 shrink-0">3</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">1.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">3</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">14</div>
-          <div class="w-40 sm:w-52 font-bold text-slate-900 truncate shrink-0">รูมาตอยด์</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 2.3%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">1.4%</span>
+          <!-- 14 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">14</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">กระดูกพรุน</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-bold text-slate-900 shrink-0">3</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">1.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">15</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">กระดูกพรุน</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 15 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">15</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">โลหิตจาง</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">16</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">โลหิตจาง</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 16 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">16</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">ธาลัสซีเมีย</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">17</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">ธาลัสซีเมีย</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 17 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">17</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">ปอดอักเสบ</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">18</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">ปอดอักเสบ</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 18 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">18</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">ไซนัส</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">19</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">ไซนัส</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 19 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">19</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">มะเร็งเต้านม</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">20</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">มะเร็งเต้านม</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 20 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">20</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">นิ่วในกระเพาะปัสสาวะ</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">21</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">นิ่วในกระเพาะปัสสาวะ</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 21 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">21</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">พร่องการได้ยิน</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">22</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">พร่องการได้ยิน</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 22 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">22</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">ตาบอด</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 3.0%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.9%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">2</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.9</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">23</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">ตาบอด</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 1.5%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.9%</span>
+          <!-- 23 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">23</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">SLE</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">2</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.9</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">24</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">SLE</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 24 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">24</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">สะเก็ดเงิน</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">25</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">สะเก็ดเงิน</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 25 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">25</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">สมองเสื่อม</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">26</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">สมองเสื่อม</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 26 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">26</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">ไมเกรน</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">27</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">ไมเกรน</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+          <!-- 27 -->
+          <div class="flex items-center gap-2 sm:gap-3 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
+            <div class="w-6 h-6 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">27</div>
+            <div class="w-36 sm:w-44 font-medium text-slate-900 truncate shrink-0">หมอนรองกระดูกทับเส้น</div>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
+                <div class="bar-fill h-full rounded-r-md" style="width: 1.3%;"></div>
+                <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
+              </div>
             </div>
+            <div class="w-14 sm:w-16 text-center font-medium text-slate-900 shrink-0">1</div>
+            <div class="w-16 sm:w-20 text-center font-bold text-amber-700 shrink-0">0.4</div>
           </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
+
         </div>
 
-        <div class="flex items-center gap-2 sm:gap-4 py-1 hover:bg-slate-50 rounded-lg px-2 transition-colors">
-          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#004b9b] text-white flex items-center justify-center font-bold text-[11px] shrink-0">28</div>
-          <div class="w-40 sm:w-52 font-medium text-slate-800 truncate shrink-0">หมอนรองกระดูกทับเส้น</div>
-          <div class="flex-1 flex items-center gap-2">
-            <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-r-md overflow-hidden relative flex items-center">
-              <div class="h-full bg-[#004b9b] rounded-r-md" style="width: 0.7%;"></div>
-              <span class="ml-2 font-bold text-slate-700 text-xs shrink-0">0.4%</span>
-            </div>
-          </div>
-          <div class="w-16 sm:w-20 text-center font-medium text-slate-800 shrink-0">1</div>
-          <div class="w-20 sm:w-24 text-center font-bold text-amber-700 shrink-0">0.4</div>
-        </div>
-        </div>
-
-        <!-- X-axis scale -->
-        <div class="pt-3 border-t border-slate-200">
-          <div class="flex items-center ml-48 sm:ml-60 mr-36 sm:mr-44 text-slate-400 text-xs font-semibold relative">
+        <!-- Bottom X-axis Scale (0 - 30%) -->
+        <div class="pt-4 border-t border-slate-200">
+          <div class="flex items-center ml-44 sm:ml-52 mr-32 sm:mr-38 text-slate-400 text-xs font-semibold relative">
             <div class="flex-1 border-t border-slate-300 relative">
               <span class="absolute -top-4 -left-1">0</span>
-              <span class="absolute -top-4 left-[16.6%]">10</span>
-              <span class="absolute -top-4 left-[33.3%]">20</span>
-              <span class="absolute -top-4 left-[50%]">30</span>
-              <span class="absolute -top-4 left-[66.6%]">40</span>
-              <span class="absolute -top-4 left-[83.3%]">50</span>
-              <span class="absolute -top-4 right-0">60</span>
+              <span class="absolute -top-4 left-[16.6%]">5</span>
+              <span class="absolute -top-4 left-[33.3%]">10</span>
+              <span class="absolute -top-4 left-[50%]">15</span>
+              <span class="absolute -top-4 left-[66.6%]">20</span>
+              <span class="absolute -top-4 left-[83.3%]">25</span>
+              <span class="absolute -top-4 right-0">30</span>
             </div>
           </div>
           <div class="text-center text-xs font-bold text-slate-500 mt-2">
@@ -1252,12 +1279,109 @@
           </div>
         </div>
 
-        <!-- Footer Banner -->
-        <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-transparent p-3 rounded-xl border border-amber-300/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-900 font-bold">
-          <div>หมายเหตุ : ประชากรทั้งหมด (n) = 204 คน (ผู้ตอบ 1 คนสามารถมีโรคประจำตัวได้มากกว่า 1 โรค)</div>
-          <div class="text-slate-700 font-normal">รวมการเกิดโรคทั้งหมด 178 ครั้ง</div>
+      </div>
+
+      <!-- Right Column: Top 3 Diseases Ranking Card (4 Cols) -->
+      <div class="lg:col-span-4 space-y-4 lg:sticky lg:top-4">
+        
+        <div class="bg-gradient-to-b from-slate-50 to-white rounded-2xl border-2 border-blue-900/20 p-5 shadow-sm space-y-4">
+          
+          <div class="border-b border-slate-200 pb-3">
+            <span class="text-[11px] font-bold tracking-wider uppercase text-blue-900 bg-blue-100/80 px-2.5 py-1 rounded-md">
+              การจัดอันดับโรค
+            </span>
+            <h2 class="text-lg font-bold text-slate-900 mt-2">3 อันดับโรคที่พบมากที่สุด</h2>
+            <p class="text-xs text-slate-500 mt-0.5">ในกลุ่มประชากรทั้งหมด (n = 204 คน)</p>
+          </div>
+
+          <!-- Rank 1 Card -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-amber-50 to-amber-100/60 border border-amber-300 shadow-xs relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-amber-500 text-white font-black text-sm flex items-center justify-center shadow-xs">
+                  1
+                </span>
+                <div>
+                  <div class="font-bold text-slate-950 text-base">ความดันโลหิตสูง</div>
+                  <div class="text-[11px] text-amber-900 font-medium">Hypertension</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xl font-black text-amber-950">54 <span class="text-xs font-normal">คน</span></div>
+                <div class="text-xs font-bold text-amber-800">ร้อยละ 25.4%</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-amber-200/80 text-[11px] text-amber-950 flex justify-between">
+              <span>สัดส่วนในกลุ่มผู้ป่วย:</span>
+              <span class="font-bold">68.4% ของผู้ป่วย</span>
+            </div>
+          </div>
+
+          <!-- Rank 2 Card -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100/60 border border-blue-300 shadow-xs relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
+                  2
+                </span>
+                <div>
+                  <div class="font-bold text-slate-950 text-base">เบาหวาน</div>
+                  <div class="text-[11px] text-blue-900 font-medium">Diabetes Mellitus</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xl font-black text-blue-950">38 <span class="text-xs font-normal">คน</span></div>
+                <div class="text-xs font-bold text-blue-800">ร้อยละ 17.9%</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-blue-200/80 text-[11px] text-blue-950 flex justify-between">
+              <span>สัดส่วนในกลุ่มผู้ป่วย:</span>
+              <span class="font-bold">48.1% ของผู้ป่วย</span>
+            </div>
+          </div>
+
+          <!-- Rank 3 Card -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-indigo-100/60 border border-indigo-300 shadow-xs relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
+                  3
+                </span>
+                <div>
+                  <div class="font-bold text-slate-950 text-base">ไขมันในเลือดสูง</div>
+                  <div class="text-[11px] text-indigo-900 font-medium">Dyslipidemia</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xl font-black text-indigo-950">32 <span class="text-xs font-normal">คน</span></div>
+                <div class="text-xs font-bold text-indigo-800">ร้อยละ 15.0%</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-indigo-200/80 text-[11px] text-indigo-950 flex justify-between">
+              <span>สัดส่วนในกลุ่มผู้ป่วย:</span>
+              <span class="font-bold">40.5% ของผู้ป่วย</span>
+            </div>
+          </div>
+
+          <!-- Summary Clinical Box -->
+          <div class="p-3.5 rounded-xl bg-slate-100 text-slate-700 text-xs space-y-1.5 border border-slate-200">
+            <div class="font-bold text-slate-900">ข้อค้นพบทางระบาดวิทยา:</div>
+            <p class="leading-relaxed">
+              ทั้ง 3 โรคนี้เป็นกลุ่มโรคไม่ติดต่อเรื้อรัง (NCDs) หลักของชุมชนตำบลบางหัก โดยพบการเกิดโรคร่วมกันในลักษณะกลุ่มอาการเมตาบอลิก (Metabolic Cluster) ซึ่งต้องได้รับการควบคุมพฤติกรรมการบริโภคอาหารรสหวาน มัน เค็ม อย่างต่อเนื่อง
+            </p>
+          </div>
+
         </div>
 
+      </div>
+
+    </div>
+
+    <!-- Bottom Footer Note -->
+    <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-transparent p-3 rounded-xl border border-amber-300/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-900 font-bold">
+      <div>หมายเหตุ : ประชากรทั้งหมด (n) = 204 คน</div>
+      <div class="text-slate-700 font-normal">ข้อมูลสถิติการเจ็บป่วยเรื้อรังรายบุคคล ชุมชนตำบลบางหัก หมู่ 1</div>
+    </div>
       </div>
 
 
