@@ -61,6 +61,59 @@
       background-color: #004b9b !important;
       transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
+  
+    /* Community Map Styles */
+    .map-container {
+      position: relative;
+      overflow: hidden;
+      background: #f8fafc;
+      user-select: none;
+    }
+    .map-canvas {
+      position: relative;
+      transform-origin: center center;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+    .house-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, z-index 0.2s;
+      z-index: 20;
+    }
+    .house-pin:hover {
+      transform: translate(-50%, -50%) scale(1.35);
+      z-index: 40;
+    }
+    .house-pin.active {
+      transform: translate(-50%, -50%) scale(1.55);
+      z-index: 50;
+    }
+    .house-pin.active .pin-pulse {
+      display: block;
+    }
+    .pin-pulse {
+      display: none;
+      position: absolute;
+      inset: -5px;
+      border-radius: 9999px;
+      background: rgba(37, 99, 235, 0.5);
+      animation: pin-pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+      pointer-events: none;
+    }
+    @keyframes pin-pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      50% { transform: scale(2.0); opacity: 0.35; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+    .landmark-badge {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 15;
+    }
+
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 antialiased">
@@ -1657,6 +1710,122 @@
         </div>
       </div>
 
+      
+      <!-- COMMUNITY HEALTH MAP SECTION (แผนที่เดินดินชุมชนแบบตอบโต้) -->
+      <div id="communityMapCard" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-5">
+        <!-- Map Header / Toolbar -->
+        <div class="p-4 bg-slate-50/90 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-blue-600 text-white text-xs px-2.5 py-0.5 rounded-full font-bold">GIS ชุมชน</span>
+              <h3 class="font-bold text-base text-slate-900">แผนที่เดินดิน ตำบลบางหัก อำเภอพานทอง จังหวัดชลบุรี (หมู่ที่ 1)</h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">
+              คลิกหลังคาเรือนบนแผนที่เพื่อเปิดแฟ้มข้อมูลสุขภาพ หรือคลิกเลือกครัวเรือนจากรายการด้านล่างเพื่อชี้ตำแหน่งบนแผนที่
+            </p>
+          </div>
+
+          <!-- Toolbar actions -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Active Household Badge -->
+            <div id="mapActiveBadge" class="hidden text-xs bg-blue-50 text-blue-800 border border-blue-200 px-3 py-1 rounded-lg font-semibold flex items-center gap-1.5 shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+              <span>เลือก: <strong id="mapActiveHouseNo">-</strong></span>
+            </div>
+
+            <!-- Map Layer Switcher: เดินดิน vs ดาวเทียม -->
+            <div class="flex bg-slate-200 p-0.5 rounded-lg text-xs font-medium">
+              <button id="btnMapWalk" onclick="switchMapLayer('walk')" class="px-3 py-1 rounded-md bg-white text-blue-800 shadow-sm font-bold transition-all">
+                แผนที่เดินดิน (70 หลัง)
+              </button>
+              <button id="btnMapSat" onclick="switchMapLayer('satellite')" class="px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all">
+                ภาพถ่ายดาวเทียม
+              </button>
+            </div>
+
+            <!-- Zoom controls -->
+            <div class="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-0.5">
+              <button onclick="mapZoom(0.2)" title="ซูมเข้า" class="w-7 h-7 flex items-center justify-center text-slate-700 hover:bg-slate-100 rounded font-bold text-sm">+</button>
+              <button onclick="mapZoom(-0.2)" title="ซูมออก" class="w-7 h-7 flex items-center justify-center text-slate-700 hover:bg-slate-100 rounded font-bold text-sm">-</button>
+              <button onclick="mapResetZoom()" title="รีเซ็ตมุมมอง" class="px-2 h-7 flex items-center justify-center text-xs text-slate-600 hover:bg-slate-100 rounded font-medium">รีเซ็ต</button>
+            </div>
+
+            <!-- Collapse / Expand toggle -->
+            <button onclick="toggleMapCollapse()" id="btnToggleMap" class="text-xs text-slate-600 hover:text-slate-900 px-2.5 py-1 border border-slate-200 rounded-lg hover:bg-slate-100 font-medium">
+              ย่อแผนที่
+            </button>
+          </div>
+        </div>
+
+        <!-- Map Body Container -->
+        <div id="mapBody" class="map-container relative overflow-hidden bg-slate-100 transition-all duration-300" style="height: 520px; cursor: grab;">
+          
+          <!-- Viewport that pans and zooms -->
+          <div id="mapViewport" class="absolute inset-0 w-full h-full flex items-center justify-center">
+            
+            <!-- Canvas Wrapper for Image and Pins -->
+            <div id="mapCanvas" class="map-canvas relative shadow-lg rounded-xl overflow-hidden bg-white" style="width: 100%; max-width: 950px; aspect-ratio: 1024 / 722;">
+              
+              <!-- Walk Map Image -->
+              <img id="imgWalkMap" src="community_map.jpg" alt="แผนที่เดินดิน ตำบลบางหัก ม.1" class="w-full h-full object-contain block pointer-events-none" />
+              
+              <!-- Satellite Map Image (hidden by default) -->
+              <img id="imgSatMap" src="satellite_map.png" alt="ภาพถ่ายดาวเทียม ตำบลบางหัก" class="w-full h-full object-contain hidden pointer-events-none" />
+
+              <!-- Overlay of 70 Pins -->
+              <div id="mapPinsContainer" class="absolute inset-0 pointer-events-auto"></div>
+
+              <!-- Important Landmarks Overlay -->
+              <div id="mapLandmarksContainer" class="absolute inset-0 pointer-events-none">
+                <div class="landmark-badge text-[10px] font-bold bg-amber-800/90 text-white px-1.5 py-0.5 rounded shadow" style="left: 21.2%; top: 79.5%;">วัด</div>
+                <div class="landmark-badge text-[10px] font-bold bg-teal-800/90 text-white px-1.5 py-0.5 rounded shadow" style="left: 25.4%; top: 78.5%;">รพ.สต.</div>
+                <div class="landmark-badge text-[10px] font-bold bg-blue-900/90 text-white px-1.5 py-0.5 rounded shadow" style="left: 29.0%; top: 77.8%;">ผู้ใหญ่บ้าน</div>
+                <div class="landmark-badge text-[10px] font-bold bg-rose-800/90 text-white px-1.5 py-0.5 rounded shadow" style="left: 34.6%; top: 78.2%;">โรงเรียน</div>
+                <div class="landmark-badge text-[10px] font-bold bg-orange-700/90 text-white px-1.5 py-0.5 rounded shadow" style="left: 26.2%; top: 68.2%;">ร้านของชำ</div>
+              </div>
+
+              <!-- Floating Callout Tooltip for Selected House -->
+              <div id="mapSelectedCallout" class="absolute hidden pointer-events-none z-50 transform -translate-x-1/2 -translate-y-full pb-2">
+                <div class="bg-slate-900/95 text-white backdrop-blur text-xs rounded-xl py-2 px-3 shadow-2xl border border-white/20 whitespace-nowrap flex flex-col items-center">
+                  <div class="flex items-center gap-1.5">
+                    <span id="calloutHouseNo" class="font-bold text-amber-300 text-sm">บ้านเลขที่ -</span>
+                    <span id="calloutRowId" class="text-[10px] bg-blue-600/80 px-1.5 py-0.2 rounded text-white">#1</span>
+                  </div>
+                  <span id="calloutHead" class="text-[11px] text-slate-300 mt-0.5">-</span>
+                  <span id="calloutStatus" class="text-[10px] text-rose-400 font-semibold mt-0.5">-</span>
+                  <div class="w-2.5 h-2.5 bg-slate-900 rotate-45 transform translate-y-1 mt-0.5 border-r border-b border-white/20"></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Map Legend & Guide Bar -->
+        <div class="px-4 py-2.5 bg-white flex flex-wrap items-center justify-between gap-3 text-xs border-t border-slate-100">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="font-semibold text-slate-700">สัญลักษณ์หมุด:</span>
+            <span class="flex items-center gap-1.5 text-slate-600">
+              <span class="w-3 h-3 rounded-full bg-rose-500 border border-white shadow-sm inline-block"></span> มีโรคเรื้อรัง (53 หลัง)
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-600">
+              <span class="w-3 h-3 rounded-full bg-amber-500 border border-white shadow-sm inline-block"></span> มีผู้สูงอายุ 60+ (แต่ไม่มีโรคเรื้อรัง)
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-600">
+              <span class="w-3 h-3 rounded-full bg-emerald-500 border border-white shadow-sm inline-block"></span> ปกติ / ไม่มีโรคเรื้อรัง
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-600">
+              <span class="w-3 h-3 rounded-full bg-blue-600 ring-2 ring-blue-400 shadow-sm inline-block animate-pulse"></span> กำลังเลือก
+            </span>
+          </div>
+          <div class="text-[11px] text-slate-400">
+            ลากเพื่อเลื่อนแผนที่ (Pan) | หมุนลูกกลิ้งเมาส์เพื่อซูม | คลิกที่หมุดเพื่อดูข้อมูล
+          </div>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col max-h-[750px] overflow-hidden">
           <div class="p-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
@@ -2191,7 +2360,519 @@
       });
     }
 
+    
+    // 70 House Coordinates on Community Map
+    const HOUSE_COORDS = {
+  "1": {
+    "x": 50.1,
+    "y": 20.78
+  },
+  "2": {
+    "x": 62.4,
+    "y": 19.11
+  },
+  "3": {
+    "x": 65.43,
+    "y": 20.78
+  },
+  "4": {
+    "x": 68.75,
+    "y": 19.81
+  },
+  "5": {
+    "x": 73.34,
+    "y": 20.91
+  },
+  "6": {
+    "x": 76.56,
+    "y": 14.68
+  },
+  "7": {
+    "x": 78.42,
+    "y": 21.88
+  },
+  "8": {
+    "x": 81.25,
+    "y": 19.94
+  },
+  "9": {
+    "x": 40.72,
+    "y": 29.92
+  },
+  "10": {
+    "x": 45.9,
+    "y": 25.07
+  },
+  "11": {
+    "x": 49.22,
+    "y": 32.27
+  },
+  "12": {
+    "x": 55.47,
+    "y": 23.82
+  },
+  "13": {
+    "x": 66.02,
+    "y": 25.48
+  },
+  "14": {
+    "x": 71.78,
+    "y": 26.73
+  },
+  "15": {
+    "x": 74.8,
+    "y": 25.9
+  },
+  "16": {
+    "x": 79.3,
+    "y": 27.15
+  },
+  "17": {
+    "x": 80.37,
+    "y": 24.79
+  },
+  "18": {
+    "x": 81.64,
+    "y": 30.19
+  },
+  "19": {
+    "x": 83.89,
+    "y": 22.3
+  },
+  "20": {
+    "x": 85.55,
+    "y": 30.75
+  },
+  "21": {
+    "x": 87.89,
+    "y": 30.06
+  },
+  "22": {
+    "x": 17.87,
+    "y": 40.58
+  },
+  "23": {
+    "x": 28.61,
+    "y": 40.86
+  },
+  "24": {
+    "x": 42.87,
+    "y": 34.49
+  },
+  "25": {
+    "x": 44.63,
+    "y": 41.27
+  },
+  "26": {
+    "x": 55.47,
+    "y": 41.27
+  },
+  "27": {
+    "x": 60.74,
+    "y": 36.7
+  },
+  "28": {
+    "x": 63.48,
+    "y": 42.94
+  },
+  "29": {
+    "x": 66.8,
+    "y": 33.38
+  },
+  "30": {
+    "x": 73.73,
+    "y": 39.06
+  },
+  "31": {
+    "x": 85.25,
+    "y": 39.47
+  },
+  "32": {
+    "x": 87.79,
+    "y": 34.07
+  },
+  "33": {
+    "x": 89.75,
+    "y": 38.64
+  },
+  "34": {
+    "x": 91.7,
+    "y": 42.52
+  },
+  "35": {
+    "x": 17.19,
+    "y": 52.91
+  },
+  "36": {
+    "x": 22.66,
+    "y": 50.69
+  },
+  "37": {
+    "x": 70.51,
+    "y": 48.75
+  },
+  "38": {
+    "x": 73.44,
+    "y": 51.52
+  },
+  "39": {
+    "x": 76.07,
+    "y": 48.34
+  },
+  "40": {
+    "x": 77.25,
+    "y": 55.12
+  },
+  "41": {
+    "x": 80.47,
+    "y": 53.88
+  },
+  "42": {
+    "x": 17.77,
+    "y": 59.42
+  },
+  "43": {
+    "x": 22.17,
+    "y": 55.54
+  },
+  "44": {
+    "x": 63.96,
+    "y": 62.47
+  },
+  "45": {
+    "x": 67.19,
+    "y": 58.73
+  },
+  "46": {
+    "x": 70.9,
+    "y": 59.56
+  },
+  "47": {
+    "x": 75.0,
+    "y": 57.2
+  },
+  "48": {
+    "x": 19.43,
+    "y": 66.62
+  },
+  "49": {
+    "x": 19.73,
+    "y": 72.16
+  },
+  "50": {
+    "x": 26.17,
+    "y": 73.96
+  },
+  "51": {
+    "x": 26.37,
+    "y": 69.25
+  },
+  "52": {
+    "x": 30.18,
+    "y": 66.9
+  },
+  "53": {
+    "x": 30.76,
+    "y": 74.1
+  },
+  "54": {
+    "x": 41.7,
+    "y": 73.55
+  },
+  "55": {
+    "x": 52.93,
+    "y": 73.55
+  },
+  "56": {
+    "x": 57.13,
+    "y": 67.31
+  },
+  "57": {
+    "x": 57.42,
+    "y": 73.82
+  },
+  "58": {
+    "x": 61.04,
+    "y": 73.41
+  },
+  "59": {
+    "x": 63.28,
+    "y": 67.59
+  },
+  "60": {
+    "x": 21.58,
+    "y": 80.61
+  },
+  "61": {
+    "x": 22.85,
+    "y": 82.83
+  },
+  "62": {
+    "x": 23.93,
+    "y": 86.15
+  },
+  "63": {
+    "x": 25.49,
+    "y": 79.92
+  },
+  "64": {
+    "x": 27.64,
+    "y": 78.39
+  },
+  "65": {
+    "x": 29.2,
+    "y": 84.49
+  },
+  "66": {
+    "x": 34.47,
+    "y": 79.5
+  },
+  "67": {
+    "x": 40.14,
+    "y": 81.3
+  },
+  "68": {
+    "x": 41.5,
+    "y": 86.57
+  },
+  "69": {
+    "x": 44.34,
+    "y": 82.41
+  },
+  "70": {
+    "x": 47.07,
+    "y": 83.66
+  }
+};
+
+    // Map Navigation State
+    let mapScale = 1.0;
+    let mapPanX = 0;
+    let mapPanY = 0;
+    let isMapPanning = false;
+    let startPanX = 0;
+    let startPanY = 0;
+    let currentMapLayer = 'walk';
+    let isMapCollapsed = false;
+
+    function initCommunityMap() {
+      renderMapPins();
+      setupMapInteractions();
+    }
+
+    function renderMapPins() {
+      const container = document.getElementById('mapPinsContainer');
+      if (!container) return;
+
+      container.innerHTML = DATA.map(item => {
+        const coord = HOUSE_COORDS[item.row_id] || { x: 50, y: 50 };
+        const hasChronic = item.members.some(m => m.chronic_disease && !['ไม่มี', '-', 'ไม่เป็น', ''].includes(m.chronic_disease));
+        const hasElderly = item.members.some(m => isElderlyMember(m));
+        
+        let colorClass = 'bg-emerald-500 border-white text-white hover:bg-emerald-600';
+        if (hasChronic) {
+          colorClass = 'bg-rose-500 border-white text-white hover:bg-rose-600 shadow-rose-200';
+        } else if (hasElderly) {
+          colorClass = 'bg-amber-500 border-white text-white hover:bg-amber-600 shadow-amber-200';
+        }
+
+        const displayNo = item.display_house_no || item.house_no || item.row_id;
+
+        return `
+          <div id="pin-${item.row_id}" 
+            class="house-pin" 
+            data-row-id="${item.row_id}"
+            style="left: ${coord.x}%; top: ${coord.y}%;"
+            onclick="handlePinClick(${item.row_id})"
+            title="บ้านเลขที่ ${displayNo} (ลำดับที่ ${item.row_id})">
+            <div class="pin-pulse"></div>
+            <div class="pin-badge w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-[9px] md:text-[10px] font-bold border-2 shadow-md transition-all ${colorClass}">
+              ${item.row_id}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setupMapInteractions() {
+      const mapBody = document.getElementById('mapBody');
+      const canvas = document.getElementById('mapCanvas');
+      if (!mapBody || !canvas) return;
+
+      // Mouse drag to pan
+      mapBody.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.house-pin')) return;
+        isMapPanning = true;
+        startPanX = e.clientX - mapPanX;
+        startPanY = e.clientY - mapPanY;
+        mapBody.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isMapPanning) return;
+        mapPanX = e.clientX - startPanX;
+        mapPanY = e.clientY - startPanY;
+        applyMapTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isMapPanning) {
+          isMapPanning = false;
+          mapBody.style.cursor = 'grab';
+        }
+      });
+
+      // Mouse wheel zoom
+      mapBody.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.15 : 0.15;
+        mapZoom(delta);
+      }, { passive: false });
+
+      // Touch drag for mobile
+      let touchStartX = 0, touchStartY = 0;
+      mapBody.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX - mapPanX;
+          touchStartY = e.touches[0].clientY - mapPanY;
+        }
+      }, { passive: true });
+
+      mapBody.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1) {
+          mapPanX = e.touches[0].clientX - touchStartX;
+          mapPanY = e.touches[0].clientY - touchStartY;
+          applyMapTransform();
+        }
+      }, { passive: true });
+    }
+
+    function applyMapTransform() {
+      const canvas = document.getElementById('mapCanvas');
+      if (canvas) {
+        canvas.style.transform = `translate(${mapPanX}px, ${mapPanY}px) scale(${mapScale})`;
+      }
+    }
+
+    function mapZoom(delta) {
+      mapScale = Math.max(0.8, Math.min(3.0, mapScale + delta));
+      applyMapTransform();
+    }
+
+    function mapResetZoom() {
+      mapScale = 1.0;
+      mapPanX = 0;
+      mapPanY = 0;
+      applyMapTransform();
+    }
+
+    function toggleMapCollapse() {
+      const mapBody = document.getElementById('mapBody');
+      const btn = document.getElementById('btnToggleMap');
+      if (!mapBody || !btn) return;
+      isMapCollapsed = !isMapCollapsed;
+      if (isMapCollapsed) {
+        mapBody.style.height = '0px';
+        btn.innerText = 'ขยายแผนที่';
+      } else {
+        mapBody.style.height = '520px';
+        btn.innerText = 'ย่อแผนที่';
+      }
+    }
+
+    function switchMapLayer(layer) {
+      currentMapLayer = layer;
+      const imgWalk = document.getElementById('imgWalkMap');
+      const imgSat = document.getElementById('imgSatMap');
+      const pins = document.getElementById('mapPinsContainer');
+      const landmarks = document.getElementById('mapLandmarksContainer');
+      const btnWalk = document.getElementById('btnMapWalk');
+      const btnSat = document.getElementById('btnMapSat');
+
+      if (layer === 'walk') {
+        imgWalk.classList.remove('hidden');
+        imgSat.classList.add('hidden');
+        pins.classList.remove('hidden');
+        landmarks.classList.remove('hidden');
+
+        btnWalk.className = 'px-3 py-1 rounded-md bg-white text-blue-800 shadow-sm font-bold transition-all';
+        btnSat.className = 'px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all';
+      } else {
+        imgWalk.classList.add('hidden');
+        imgSat.classList.remove('hidden');
+        pins.classList.add('hidden');
+        landmarks.classList.add('hidden');
+
+        btnSat.className = 'px-3 py-1 rounded-md bg-white text-blue-800 shadow-sm font-bold transition-all';
+        btnWalk.className = 'px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all';
+      }
+    }
+
+    function handlePinClick(rowId) {
+      selectHousehold(rowId);
+      const itemEl = document.getElementById('householdList')?.querySelector(`[onclick="selectHousehold(${rowId})"]`);
+      if (itemEl) {
+        itemEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function focusHouseOnMap(rowId, shouldScroll = false) {
+      const coord = HOUSE_COORDS[rowId];
+      if (!coord) return;
+
+      const item = DATA.find(i => i.row_id === rowId);
+      if (!item) return;
+
+      // Update pin active classes
+      document.querySelectorAll('.house-pin').forEach(p => p.classList.remove('active'));
+      const targetPin = document.getElementById(`pin-${rowId}`);
+      if (targetPin) {
+        targetPin.classList.add('active');
+      }
+
+      // Update map toolbar badge
+      const activeBadge = document.getElementById('mapActiveBadge');
+      const activeHouseNo = document.getElementById('mapActiveHouseNo');
+      if (activeBadge && activeHouseNo) {
+        activeBadge.classList.remove('hidden');
+        activeHouseNo.innerText = `บ้านเลขที่ ${item.display_house_no || item.house_no} (#${item.row_id})`;
+      }
+
+      // Position callout tooltip over pin
+      const callout = document.getElementById('mapSelectedCallout');
+      if (callout) {
+        callout.style.left = `${coord.x}%`;
+        callout.style.top = `${coord.y}%`;
+        
+        document.getElementById('calloutHouseNo').innerText = `บ้านเลขที่ ${item.display_house_no || item.house_no}`;
+        document.getElementById('calloutRowId').innerText = `#${item.row_id}`;
+        const head = item.members[0] ? item.members[0].name : '-';
+        document.getElementById('calloutHead').innerText = `${head} (${item.members_count} คน)`;
+
+        const chronicList = item.members
+          .filter(m => m.chronic_disease && !['ไม่มี', '-', 'ไม่เป็น', ''].includes(m.chronic_disease))
+          .map(m => m.chronic_disease);
+        
+        if (chronicList.length > 0) {
+          document.getElementById('calloutStatus').innerText = `โรค: ${chronicList[0].split(',')[0]}`;
+          document.getElementById('calloutStatus').className = 'text-[10px] text-rose-400 font-semibold mt-0.5';
+        } else {
+          document.getElementById('calloutStatus').innerText = 'สุขภาพดี / ไม่มีโรคเรื้อรัง';
+          document.getElementById('calloutStatus').className = 'text-[10px] text-emerald-400 font-medium mt-0.5';
+        }
+
+        callout.classList.remove('hidden');
+      }
+
+      // Smooth scroll up to map if requested
+      if (shouldScroll) {
+        document.getElementById('communityMapCard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+
     function initFamilyTab() {
+      initCommunityMap();
       document.getElementById('searchInput').addEventListener('input', (e) => {
         currentSearch = e.target.value.toLowerCase().trim();
         renderFamilyList();
@@ -2284,6 +2965,19 @@
       const filtered = getFilteredData();
       document.getElementById('resultCount').innerText = filtered.length;
 
+      // Update map pin visibility based on active filter
+      const filteredRowIds = new Set(filtered.map(i => i.row_id));
+      document.querySelectorAll('.house-pin').forEach(pin => {
+        const rowId = parseInt(pin.getAttribute('data-row-id'));
+        if (filteredRowIds.has(rowId)) {
+          pin.style.opacity = '1';
+          pin.style.pointerEvents = 'auto';
+        } else {
+          pin.style.opacity = '0.2';
+          pin.style.pointerEvents = 'none';
+        }
+      });
+
       const listContainer = document.getElementById('householdList');
       if (filtered.length === 0) {
         listContainer.innerHTML = '<div class="p-8 text-center text-slate-400">ไม่พบข้อมูลตามเงื่อนไขที่ค้นหา</div>';
@@ -2336,6 +3030,7 @@
     function selectHousehold(rowId) {
       selectedRowId = rowId;
       renderFamilyList();
+      focusHouseOnMap(rowId, false);
     }
 
     function getBmiBadge(bmi, age) {
@@ -2370,6 +3065,9 @@
               <p class="text-xs text-slate-500 mt-1">สำรวจเมื่อ: ${item.timestamp} (ข้อมูลเดิมแถวที่ ${item.original_row_id})</p>
             </div>
             <div class="flex items-center gap-2">
+              <button onclick="focusHouseOnMap(${item.row_id}, true)" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold px-2.5 py-1 rounded-lg border border-blue-200 flex items-center gap-1 transition-all shadow-sm">
+                ชี้ตำแหน่งบนแผนที่
+              </button>
               <span class="badge badge-blue text-xs px-3 py-1">รวม ${item.members_count} คน</span>
               <button onclick="window.print()" class="text-xs border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-1 rounded-lg flex items-center gap-1">
                 พิมพ์
